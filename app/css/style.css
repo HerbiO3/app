@@ -11,12 +11,15 @@ body{
 #units{
     text-align: center;
     margin-top: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 .unit{
     cursor: pointer;
     border-radius: 0 100px 100px 100px;
     background: rgb(0,118,190);
-    background: linear-gradient(225deg, rgba(0,118,190,1) 0%, rgba(72,191,145,1) 100%);
+    background: linear-gradient(225deg, rgba(0,118,190,1) 0%, rgb(4 57 95) 100%);
     width: 150px;
     height: 150px;
     color: white;
@@ -44,7 +47,7 @@ body{
     cursor: pointer;
     border-radius: .4rem;
     background: rgb(0,118,190);
-    background: linear-gradient(225deg, rgba(0,118,190,1) 0%, rgba(72,191,145,1) 100%);
+    background: linear-gradient(225deg, rgba(0,118,190,1) 0%, rgb(4 57 95) 100%);
     width: 150px;
     height: 150px;
     color: white;
@@ -174,7 +177,13 @@ body{
     color: #006370;
 }
 
-
+#notifications p.danger{
+    background-color: #a21f1f;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 4px;
+}
 
 
 header{
@@ -183,4 +192,19 @@ header{
     padding: 8px;
     color: white;
     border-radius: 0 0 50px 50px;
+}
+
+
+#up-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004b75;
+    padding: 0 8px;
+}
+
+.nav-img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
