@@ -1,5 +1,10 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+session_start();
+if(!isset($_SESSION["user"])){
+    header("HTTP/1.1 401 Unauthorized");
+    die("unauthorized");
+}
 
 //GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

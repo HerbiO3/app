@@ -1,18 +1,10 @@
 <?php
-
-//$unit1 = new stdClass();
-//$unit1->name = "FAKULTA CHODBA";
-//$unit1->id = 165;
-//$unit2 = new stdClass();
-//$unit2->name = "MATÚŠ JOKAY";
-//$unit2->id = 225;
-//
-//$units = [$unit1, $unit2];
-//
-//echo json_encode($units);
-
-
 header('Content-Type: application/json; charset=utf-8');
+session_start();
+if(!isset($_SESSION["user"])){
+    header("HTTP/1.1 401 Unauthorized");
+    die("unauthorized");
+}
 
 //GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -29,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     //get all
     } else{
-        echo '[ { "id": 5, "name": "Fakulta chodba" }, { "id": 2, "name": "Matúš Jokay" } ]';
+        echo '[ { "id": 5, "name": "Fakulta chodba444" }, { "id": 2, "name": "Matúš Jokay" } ]';
         return;
     }
 }

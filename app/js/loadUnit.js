@@ -13,7 +13,12 @@ function openUnit(id){
     title.innerText="VÝBER SEKCIE"
 
     const uniturl = "/api/units?unitId=" + id
-    fetch(uniturl).then(function(response) {
+    const ms = Date.now();
+    fetch(uniturl+"?time="+ms, {cache: "no-cache"}).then(function(response) {
+        if (response.status !== 200){
+            window.location.replace("index.php");
+            return;
+        }
         return response.json();
     }).then(function(data) {
         backOnline()

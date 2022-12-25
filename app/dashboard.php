@@ -4,20 +4,13 @@
     <title>HerbiO3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--    <link type="text/css" rel="stylesheet" href="css/style.css">-->
-    <link href="/dist/output.css" rel="stylesheet">
+    <link href="/app/css/output.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./img/herbio3.svg">
-    <script src="/js/script.js"></script>
+    <script src="/js/script.js?v=01"></script>
     <link rel="manifest" href='./manifest.json'>
     <meta name="theme-color" content="#0076BE" />
 </head>
-<body class="bg-gray-50">
-<!--<nav id="up-nav">-->
-<!--    <img class="nav-img" id="back" src="img/icons/back.svg">-->
-<!--    <div>-->
-<!--        <img class="nav-img" src="img/icons/settings.svg">-->
-<!--        <img class="nav-img" src="img/icons/settings.svg">-->
-<!--    </div>-->
-<!--</nav>-->
+<body class="bg-gray-50 dark:bg-gray-800">
 <div class="shadow">
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap items-center justify-between mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
@@ -45,7 +38,7 @@
                     </a>
                 </div>
                 <div class="flex items-center md:order-2">
-                    <a href="index.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <a href="/api/auth/logout.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                         <img class="w-10 h-10 rounded-full" src="img/icons/logout.svg" alt="user photo">
                     </a>
                 </div>

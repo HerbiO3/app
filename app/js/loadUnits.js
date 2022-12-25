@@ -1,10 +1,25 @@
+var myHeaders = new Headers();
+myHeaders.append('pragma', 'reload');
+myHeaders.append('cache-control', 'reload');
+myHeaders.append('credentials', 'include');
+
+var myInit = {
+    method: 'GET',
+    headers: myHeaders,
+};
+
 function openUnits() {
     if(window.navigator.onLine === false){
         appendOffile()
         offlineUnits()
     }else{
         url = "/api/units"
-        fetch(url).then(function(response) {
+        const ms = Date.now();
+        fetch(url+"?time="+ms, {cache: 'no-store'}).then(function(response) {
+            if (response.status !== 200){
+                window.location.replace("index.php");
+                return;
+            }
             return response.json();
         }).then(function(data) {
             backOnline()

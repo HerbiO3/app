@@ -9,7 +9,12 @@ function openSection(name, id){
         section.style.display="inline-flex";
         title.innerText="SEKCIA " + name;
         var uniturl = "/api/sections?sectionId=" + id
-        fetch(uniturl).then(function(response) {
+        const ms = Date.now();
+        fetch(uniturl+"?time="+ms, {cache: "no-cache"}).then(function(response) {
+            if (response.status !== 200){
+                window.location.replace("index.php");
+                return;
+            }
             return response.json();
         }).then(function(data) {
             console.log(data);
