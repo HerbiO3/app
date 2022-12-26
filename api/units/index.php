@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     //get all
     } else{
-        echo '[ { "id": 5, "name": "Fakulta chodba444" }, { "id": 2, "name": "Matúš Jokay" } ]';
+        echo '[ { "id": 5, "name": "Fakulta chodba" }, { "id": 2, "name": "Matúš Jokay" } ]';
         return;
     }
 }
