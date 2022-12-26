@@ -46,8 +46,8 @@
         </div>
     </nav>
 </div>
-<div id="notifications" style="display: none">
-    <p id="offline" class="danger"></p>
+<div id="notifications">
+    <p id="offline" class="danger" style="display: none"></p>
 </div>
 <div id="units">
     <div class="unit"></div>
@@ -62,9 +62,11 @@
 </div>
 
 </body>
+<script src="js/messages.js"></script>
 <script src="js/loadUnit.js"></script>
 <script src="js/loadUnits.js"></script>
 <script src="js/loadSection.js"></script>
+<script src="js/navigateBack.js"></script>
 <script>
     const messages = document.getElementById("notifications")
     if(window.navigator.onLine === false){
@@ -77,23 +79,7 @@
     const unit = document.getElementById("unit")
     const section = document.getElementById("section")
     const title = document.getElementById("title")
-    const back = document.getElementById("back")
-    let last = "units"
-    back.addEventListener("click", ()=>{
-        units.style.display = 'none'
-        unit.style.display = 'none'
-        section.style.display = 'none'
-        switch (last) {
-            case "units":
-                units.style.display = 'inline-flex'
-                break
-            case "unit":
-                last = 'units' // ZNOVA ROBIT OPEN!
-                unit.style.display = 'block'
-                break
-        }
-    })
-
+    let lastUnitId;
     openUnits();
 
 </script>

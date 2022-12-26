@@ -1,14 +1,5 @@
-var myHeaders = new Headers();
-myHeaders.append('pragma', 'reload');
-myHeaders.append('cache-control', 'reload');
-myHeaders.append('credentials', 'include');
-
-var myInit = {
-    method: 'GET',
-    headers: myHeaders,
-};
-
 function openUnits() {
+    cleanMessages();
     if(window.navigator.onLine === false){
         appendOffile()
         offlineUnits()
@@ -16,9 +7,21 @@ function openUnits() {
         url = "/api/units"
         const ms = Date.now();
         fetch(url+"?time="+ms, {cache: 'no-store'}).then(function(response) {
-            if (response.status !== 200){
-                window.location.replace("index.php");
-                return;
+            switch (response.status) {
+                case 200:
+                    units.style.display="block";
+                    unit.style.display="none";
+                    section.style.display="none";
+                    title.innerText="VÝBER JEDNOTKY"
+                    break;
+                case 401:
+                    const error = new Error("Unauthorized");
+                    error.name = '401';
+                    throw error;
+                default:
+                    const errordef = new Error("Server Error");
+                    errordef.name = 'other';
+                    throw errordef;
             }
             return response.json();
         }).then(function(data) {
@@ -28,8 +31,20 @@ function openUnits() {
             localStorage.setItem("units",JSON.stringify(data));
         }).catch(function(e) {
             console.log(e)
-            appendOffile()
-            offlineUnits()
+            switch (e.name){
+                case "401":
+                    window.location.replace("index.php?reqlog=true");
+                    return;
+                case "404":
+                    appendMessage("danger", "Nepodarilo sa nájsť.")
+                    return;
+                case "other":
+                    appendMessage("danger", "Chyba servera.")
+                    return;
+                default:
+                    appendOffile()
+                    offlineSections(id)
+            }
         });
     }
 }

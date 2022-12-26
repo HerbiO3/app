@@ -188,6 +188,20 @@ body{
     margin: 0;
     padding: 4px;
 }
+#notifications p.info{
+    background-color: #1f3ea2;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 4px;
+}
+#notifications p.success{
+    background-color: #28a21f;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 4px;
+}
 
 
 header{

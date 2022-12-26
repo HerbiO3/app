@@ -3,7 +3,7 @@
  * References: https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker
  *************************/
 
-const cacheName = 'herbio3-app-v06';
+const cacheName = 'herbio3-app-v07';
 const files = [
     "./app/css/style.css",
     "./app/dashboard.php",

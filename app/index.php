@@ -49,7 +49,7 @@
         </div>
     </div>
 </section>
-
+<script src="js/messages.js"></script>
 <script>
     const messages = document.getElementById("notifications")
     var myHeaders = new Headers();
@@ -63,22 +63,17 @@
     };
 
     if(window.navigator.onLine === false){
-        const offline = document.createElement("p");
-        offline.innerText = "Internetové pripojenie neexistuje. Skontroluj pripojenie a skús znova."
-        offline.classList.toggle("danger")
-        messages.append(offline);
+        appendMessage("danger", "Internetové pripojenie neexistuje. Skontroluj pripojenie a skús znova.")
     }else{
         const url = "/api/auth/check.php"
         const ms = Date.now();
         fetch(url+"?time="+ms, myInit)
             .then((response) => response.text())
             .then((text) => {
-                console.log(text)
                 if (text === "ok"){
                     window.location.replace("dashboard.php");
                 }
             }).catch(function(e) {
-            console.log(response.status)
             console.log(e)
         });
     }
@@ -87,19 +82,11 @@
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
     });
-    if(params.badcred === "true") {
-        const info = document.createElement("p");
-        info.innerText = "Boli zadané nesprávne prihlasovacie údaje!"
-        info.classList.toggle("danger")
-        messages.append(info);
-    }
+    if(params.badcred === "true") appendMessage("danger", "Boli zadané nesprávne prihlasovacie údaje!");
+    if(params.reqlog === "true") appendMessage("danger", "Najprv sa musíš prihlásiť!");
     if(params.logout === "true") {
         localStorage.clear();
-        const info = document.createElement("p");
-        info.innerText = "Bol si úspešne odhlásený!"
-        info.classList.toggle("info")
-        messages.append(info);
-
+        appendMessage("info", "Odhlásenie prebehlo úspešne!")
     }
 
 </script>
