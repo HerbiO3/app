@@ -74,10 +74,21 @@ function appendSection(section){
 }
 
 function offlineSections(id){
-    if(localStorage.getItem("unit-"+id)!=null){
-        units.innerHTML='';
-        data = JSON.parse(localStorage.getItem("units"))
-        data.forEach(section=>{
+    let data;
+    if (localStorage.getItem("unit-" + id) != null) {
+        data = JSON.parse(localStorage.getItem("unit-" + id))
+
+        units.style.display = "none";
+        section.style.display = "none";
+        unit.style.display = "block";
+        title.innerText = "VÝBER SEKCIE"
+
+        unit.innerHTML = '';
+        const h2 = document.createElement("h2")
+        h2.innerText = data.name
+        unit.append(h2)
+
+        data.forEach(section => {
             appendSection(section)
         })
     }

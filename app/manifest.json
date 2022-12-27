@@ -3,7 +3,7 @@
     "background_color": "#f4f5f8",
     "display": "standalone",
     "scope": "/app/",
-    "start_url": "/app/index.php",
+    "start_url": "/app/dashboard.php",
     "name": "HerbiO3",
     "short_name": "HerbiO3",
     "description": "Automated irrigation solution.",

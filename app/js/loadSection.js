@@ -57,7 +57,7 @@ function openSection(name, id){
                     return;
                 default:
                     appendOffile()
-                    offlineSections(id)
+                    offlineSection(id)
             }
         });
     }
@@ -78,14 +78,25 @@ function createItem(name, type, value, section) {
 
 
 function offlineSection(id) {
-    if(localStorage.getItem("units")!=null){
-        units.innerHTML='';
-        data = JSON.parse(localStorage.getItem("section-"+id))
-        createItem("Hladina v nádrži","level",data.waterLevel*100 + "%",section)
-        createItem("UV index","uv",data.uvIndex,section)
-        createItem("Teplota vzduchu","temp",data.airTemperature + "°",section)
-        data.humidity.forEach((sensor)=>{
-            createItem("Vlhkosť v kvetináči ("+sensor.sensorId+")","hum",sensor.value*100 + "%",section)
+    let data;
+    if (localStorage.getItem("section-" + id) != null) {
+        data = JSON.parse(localStorage.getItem("section-" + id))
+
+        last = 'unit'
+        units.style.display="none";
+        unit.style.display="none";
+        section.style.display="inline-flex";
+        title.innerText="SEKCIA " + name;
+
+        section.innerHTML='';
+        const h2 = document.createElement("h2")
+        h2.innerText = data.name
+
+        createItem("Hladina v nádrži", "level", data.waterLevel * 100 + "%", section)
+        createItem("UV index", "uv", data.uvIndex, section)
+        createItem("Teplota vzduchu", "temp", data.airTemperature + "°", section)
+        data.humidity.forEach((sensor) => {
+            createItem("Vlhkosť v kvetináči (" + sensor.sensorId + ")", "hum", sensor.value * 100 + "%", section)
         })
     }
 }

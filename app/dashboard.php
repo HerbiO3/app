@@ -4,9 +4,9 @@
     <title>HerbiO3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--    <link type="text/css" rel="stylesheet" href="css/style.css">-->
-    <link href="/app/css/output.css" rel="stylesheet">
+    <link href="/app/css/global.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./img/herbio3.svg">
-    <script src="/js/script.js?v=01"></script>
+    <script src="/js/script.js"></script>
     <link rel="manifest" href='./manifest.json'>
     <meta name="theme-color" content="#0076BE" />
 </head>
@@ -70,10 +70,7 @@
 <script>
     const messages = document.getElementById("notifications")
     if(window.navigator.onLine === false){
-        const offline = document.createElement("p");
-        offline.innerText = "Internetové pripojenie neexistuje. Skontroluj pripojenie a skús znova."
-        offline.classList.toggle("danger")
-        messages.append(offline);
+        appendMessage("danger","Internetové pripojenie neexistuje. Skontroluj pripojenie a skús znova.")
     }
     const units = document.getElementById("units")
     const unit = document.getElementById("unit")

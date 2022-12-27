@@ -43,7 +43,7 @@ function openUnits() {
                     return;
                 default:
                     appendOffile()
-                    offlineSections(id)
+                    offlineUnits()
             }
         });
     }
@@ -60,10 +60,19 @@ function appendUnit(unit) {
 }
 
 function offlineUnits() {
-    if(localStorage.getItem("units")!=null){
-        units.innerHTML='';
+    let data;
+    if (localStorage.getItem("units") != null) {
         data = JSON.parse(localStorage.getItem("units"))
-        data.forEach(unit=>{appendUnit(unit)})
+
+        units.style.display = "block";
+        unit.style.display = "none";
+        section.style.display = "none";
+        title.innerText = "VÝBER JEDNOTKY"
+
+        units.innerHTML = '';
+        data.forEach(unit => {
+            appendUnit(unit)
+        })
     }
 }
 
@@ -72,7 +81,7 @@ function offlineUnits() {
 function appendOffile(){
     const offline = document.getElementById("offline");
     offline.innerText = "Nepodarilo sa spojiť so serverom. Skontroluj pripojenie a skús znova."
-    offline.classList.toggle("danger")
+    //offline.classList.toggle("danger")
     offline.style.display="block"
 }
 
