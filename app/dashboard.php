@@ -24,25 +24,49 @@
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-1.5 dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
             <div class="flex items-center md:order-2">
-                <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false">
                     <img id="back" class="w-10 h-10 rounded-full" src="img/icons/back.svg" alt="back">
                 </button>
             </div>
             <div class="flex items-center md:order-2">
                 <h1 id="title" class="self-center font-semibold whitespace-nowrap dark:text-white">VÝBER JEDNOTKY</h1>
             </div>
-            <div class="flex items-center md:order-3">
-                <div class="flex items-center md:order-2">
-                    <a href="settings.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                        <img class="w-10 h-10 rounded-full" src="img/icons/settings.svg" alt="user photo">
-                    </a>
+<!--            <div class="flex items-center md:order-3">-->
+<!--                <div class="flex items-center md:order-2">-->
+<!--                    <a href="settings.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">-->
+<!--                        <img class="w-10 h-10 rounded-full" src="img/icons/settings.svg" alt="user photo">-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="flex items-center md:order-2">-->
+<!--                    <a href="/api/auth/logout.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">-->
+<!--                        <img class="w-10 h-10 rounded-full" src="img/icons/logout.svg" alt="user photo">-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+            <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                <span class="sr-only">Open settings</span>
+                <img class="w-8 h-8 rounded-full" src="img/icons/settings.svg" alt="settings">
+            </button>
+
+            <!-- Dropdown menu -->
+            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                <div class="px-4 py-3">
+                    <span class="block text-sm text-gray-900 dark:text-white">HerbiO3</span>
+                    <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">user</span>
                 </div>
-                <div class="flex items-center md:order-2">
-                    <a href="/api/auth/logout.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                        <img class="w-10 h-10 rounded-full" src="img/icons/logout.svg" alt="user photo">
-                    </a>
-                </div>
+                <ul class="py-1" aria-labelledby="user-menu-button">
+                    <li>
+                        <a href="dashboard.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="settings.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                        <a href="/api/auth/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                    </li>
+                </ul>
             </div>
+
         </div>
     </nav>
 </div>
@@ -80,4 +104,5 @@
     openUnits();
 
 </script>
+<script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 </html>
