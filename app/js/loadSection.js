@@ -2,7 +2,7 @@ function openSection(name, id){
     cleanMessages();
     if(window.navigator.onLine === false){
         appendOffile()
-        offlineSection()
+        offlineSection(id)
     }else{
         var uniturl = "/api/sections?sectionId=" + id
         const ms = Date.now();
@@ -42,6 +42,7 @@ function openSection(name, id){
             data.humidity.forEach((sensor)=>{
                 createItem("Vlhkosť v kvetináči ("+sensor.sensorId+")","hum",sensor.value*100 + "%",section)
             })
+            setTime(data.time);
 
         }).catch(function(e) {
             console.log(e)
@@ -56,6 +57,7 @@ function openSection(name, id){
                     appendMessage("danger", "Chyba servera.")
                     return;
                 default:
+                    console.log("[log] offline section fetch")
                     appendOffile()
                     offlineSection(id)
             }
@@ -92,6 +94,8 @@ function offlineSection(id) {
         const h2 = document.createElement("h2")
         h2.innerText = data.name
 
+        setTime(data.time);
+
         createItem("Hladina v nádrži", "level", data.waterLevel * 100 + "%", section)
         createItem("UV index", "uv", data.uvIndex, section)
         createItem("Teplota vzduchu", "temp", data.airTemperature + "°", section)
@@ -99,4 +103,8 @@ function offlineSection(id) {
             createItem("Vlhkosť v kvetináči (" + sensor.sensorId + ")", "hum", sensor.value * 100 + "%", section)
         })
     }
+}
+
+function setTime(seconds){
+    timestamp.innerText = new Date(seconds * 1000).toLocaleString();
 }

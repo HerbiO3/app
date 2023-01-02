@@ -226,3 +226,23 @@ header{
     height: 50px;
     cursor: pointer;
 }
+
+*:focus {
+    outline: none !important;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#lastUpdate{
+    display: inline-block;
+    padding: 0 5px;
+    border-radius: 0.7rem;
+}

@@ -1,7 +1,3 @@
-// const controller = new AbortController()
-// const timeoutId = setTimeout(() => controller.abort(), 10000)
-
-
 function openUnit(id){
     cleanMessages();
     last = 'units'
@@ -9,57 +5,58 @@ function openUnit(id){
     if(window.navigator.onLine === false){
         appendOffile()
         offlineSections(id)
+    }else {
+        const uniturl = "/api/units?unitId=" + id
+        const ms = Date.now();
+        fetch(uniturl+"?time="+ms, {cache: "no-cache"}).then(function(response) {
+            switch (response.status) {
+                case 200:
+                    units.style.display="none";
+                    section.style.display="none";
+                    unit.style.display="block";
+                    title.innerText="VÝBER SEKCIE"
+                    break;
+                case 401:
+                    const error = new Error("Unauthorized");
+                    error.name = '401';
+                    throw error;
+                case 404:
+                    const error404 = new Error("Not found");
+                    error404.name = '404';
+                    throw error404;
+                default:
+                    const errordef = new Error("Server Error");
+                    errordef.name = 'other';
+                    throw errordef;
+            }
+            return response.json();
+        }).then(function(data) {
+            backOnline()
+            // unit.innerHTML='';
+            // const h2 = document.createElement("h2")
+            // h2.innerText = data.name
+            // unit.append(h2)
+            data.sections.forEach(section=>{appendSection(section)})
+            setTime(data.time);
+            localStorage.setItem("unit-"+id,JSON.stringify(data));
+        }).catch(function(e) {
+            console.log(e)
+            switch (e.name){
+                case "401":
+                    window.location.replace("index.php?reqlog=true");
+                    return;
+                case "404":
+                    appendMessage("danger", "Nepodarilo sa nájsť jednotku.")
+                    return;
+                case "other":
+                    appendMessage("danger", "Chyba servera.")
+                    return;
+                default:
+                    appendOffile()
+                    offlineSections(id)
+            }
+        });
     }
-
-    const uniturl = "/api/units?unitId=" + id
-    const ms = Date.now();
-    fetch(uniturl+"?time="+ms, {cache: "no-cache"}).then(function(response) {
-        switch (response.status) {
-            case 200:
-                units.style.display="none";
-                section.style.display="none";
-                unit.style.display="block";
-                title.innerText="VÝBER SEKCIE"
-                break;
-            case 401:
-                const error = new Error("Unauthorized");
-                error.name = '401';
-                throw error;
-            case 404:
-                const error404 = new Error("Not found");
-                error404.name = '404';
-                throw error404;
-            default:
-                const errordef = new Error("Server Error");
-                errordef.name = 'other';
-                throw errordef;
-        }
-        return response.json();
-    }).then(function(data) {
-        backOnline()
-        unit.innerHTML='';
-        const h2 = document.createElement("h2")
-        h2.innerText = data.name
-        unit.append(h2)
-        data.sections.forEach(section=>{appendSection(section)})
-        localStorage.setItem("unit-"+id,JSON.stringify(data.sections));
-    }).catch(function(e) {
-        console.log(e)
-        switch (e.name){
-            case "401":
-                window.location.replace("index.php?reqlog=true");
-                return;
-            case "404":
-                appendMessage("danger", "Nepodarilo sa nájsť jednotku.")
-                return;
-            case "other":
-                appendMessage("danger", "Chyba servera.")
-                return;
-            default:
-                appendOffile()
-                offlineSections(id)
-        }
-    });
 }
 
 
@@ -88,9 +85,10 @@ function offlineSections(id){
         h2.innerText = data.name
         unit.append(h2)
 
-        data.forEach(section => {
+        data.sections.forEach(section => {
             appendSection(section)
         })
+        setTime(data.time);
     }
 }
 
@@ -107,3 +105,6 @@ function backOnline(){
     offline.style.display="none"
 }
 
+function setTime(seconds){
+    timestamp.innerText = new Date(seconds * 1000).toLocaleString();
+}

@@ -8,11 +8,12 @@ if(!isset($_SESSION["user"])){
 
 //GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $t=time();
     //Get by id
 //    sleep(1);
     if(isset($_GET["unitId"])){
         if(intval($_GET["unitId"]) == 5){
-            echo '{ "name":"Fakulta chodba", "id":5, "sections":[ { "id": 5, "name": "Kvetináč 1", "unitName": "Fakulta chodba" }, { "id": 2, "name": "Kvetináč 2", "unitName": "Fakulta chodba" }, { "id": 3, "name": "Kvetináč 3", "unitName": "Fakulta chodba" } ] }';
+            echo '{"time": '.$t.', "name":"Fakulta chodba", "id":5, "sections":[ { "id": 5, "name": "Kvetináč 1", "unitName": "Fakulta chodba" }, { "id": 2, "name": "Kvetináč 2", "unitName": "Fakulta chodba" }, { "id": 3, "name": "Kvetináč 3", "unitName": "Fakulta chodba" } ] }';
             return;
         }else{
             header("HTTP/1.1 404 NOT FOUND");
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     //get all
     } else{
-        echo '[ { "id": 5, "name": "Fakulta chodba" }, { "id": 2, "name": "Matúš Jokay" } ]';
+        echo '{"time": '.$t.', "units": [ { "id": 5, "name": "Fakulta chodba" }, { "id": 2, "name": "Matúš Jokay" } ] }';
         return;
     }
 }

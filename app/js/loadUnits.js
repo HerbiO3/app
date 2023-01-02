@@ -27,7 +27,9 @@ function openUnits() {
         }).then(function(data) {
             backOnline()
             units.innerHTML='';
-            data.forEach(unit=>{appendUnit(unit)})
+            data.units.forEach(unit=>{appendUnit(unit)})
+
+            setTime(data.time);
             localStorage.setItem("units",JSON.stringify(data));
         }).catch(function(e) {
             console.log(e)
@@ -70,9 +72,10 @@ function offlineUnits() {
         title.innerText = "VÝBER JEDNOTKY"
 
         units.innerHTML = '';
-        data.forEach(unit => {
+        data.units.forEach(unit => {
             appendUnit(unit)
         })
+        setTime(data.time);
     }
 }
 
@@ -90,3 +93,6 @@ function backOnline(){
     offline.style.display="none"
 }
 
+function setTime(seconds){
+    timestamp.innerText = new Date(seconds * 1000).toLocaleString();
+}
