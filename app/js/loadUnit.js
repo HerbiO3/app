@@ -32,10 +32,10 @@ function openUnit(id){
             return response.json();
         }).then(function(data) {
             backOnline()
-            // unit.innerHTML='';
-            // const h2 = document.createElement("h2")
-            // h2.innerText = data.name
-            // unit.append(h2)
+            unit.innerHTML='';
+            const h2 = document.createElement("h2")
+            h2.innerText = data.name
+            unit.append(h2)
             data.sections.forEach(section=>{appendSection(section)})
             setTime(data.time);
             localStorage.setItem("unit-"+id,JSON.stringify(data));

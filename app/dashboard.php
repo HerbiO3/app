@@ -86,7 +86,7 @@
 </div>
 <div>
     <small style="display: block; margin-top: 10px" class="dark:text-white">Posledná aktualizácia:</small>
-    <p id="lastUpdate" class="shadow bg-white dark:bg-gray-900 dark:text-white"></p>
+    <p id="lastUpdate" class="shadow bg-white dark:bg-gray-700 dark:text-white"></p>
 </div>
 
 
