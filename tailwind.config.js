@@ -45,4 +45,8 @@ module.exports = {
     }
   },
   plugins: [],
+  safelist: [
+    'hidden',
+    'grid-cols-7',
+  ]
 }

@@ -14,6 +14,12 @@ function openSection(name, id){
                     unit.style.display="none";
                     section.style.display="inline-flex";
                     title.innerText="SEKCIA " + name;
+
+                    history.style.display="flex";
+                    //loadHistory.replaceWith(loadHistory.cloneNode(true));
+                    //loadHistory.removeEventListener("click", openGraphs);
+                    loadHistory.addEventListener("click", loadAndShow);
+
                     break;
                 case 401:
                     const error = new Error("Unauthorized");
@@ -88,6 +94,7 @@ function offlineSection(id) {
         units.style.display="none";
         unit.style.display="none";
         section.style.display="inline-flex";
+        history.style.display="flex";
         title.innerText="SEKCIA " + name;
 
         section.innerHTML='';
@@ -107,4 +114,9 @@ function offlineSection(id) {
 
 function setTime(seconds){
     timestamp.innerText = new Date(seconds * 1000).toLocaleString();
+}
+
+function openGraphs(id){
+    console.log(id)
+    loadAndShow(id);
 }

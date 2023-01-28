@@ -12,6 +12,8 @@ function openUnits() {
                     units.style.display="block";
                     unit.style.display="none";
                     section.style.display="none";
+                    history.style.display="none";
+
                     title.innerText="VÝBER JEDNOTKY"
                     break;
                 case 401:
@@ -69,6 +71,8 @@ function offlineUnits() {
         units.style.display = "block";
         unit.style.display = "none";
         section.style.display = "none";
+        history.style.display="none";
+
         title.innerText = "VÝBER JEDNOTKY"
 
         units.innerHTML = '';

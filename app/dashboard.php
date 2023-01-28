@@ -83,12 +83,45 @@
 <div id="section" style="display: none">
     <div class="sec-item"></div>
     <div class="sec-item"></div>
+
 </div>
+
 <div>
     <small style="display: block; margin-top: 10px" class="dark:text-white">Posledná aktualizácia:</small>
     <p id="lastUpdate" class="shadow bg-white dark:bg-gray-700 dark:text-white"></p>
 </div>
 
+<div id="sec-history" class="flex flex-col items-center justify-center px-6 py-8 mx-auto" style="display: none">
+    <div class="p-6 space-y-4 md:space-y-6 sm:p-8 w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div date-rangepicker class="flex items-center">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                </div>
+                <input datepicker name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Vyber dátum od">
+            </div>
+            <span class="mx-4 text-gray-500">to</span>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                </div>
+                <input datepicker name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Vyber dátum do">
+            </div>
+        </div>
+        <button id="show-history" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Zobraziť</button>
+
+    </div>
+    <div class="dx-viewport demo-container">
+        <div id="zoomedChart"></div>
+        <div id="rangeSelector"></div>
+    </div>
+
+    <div class="dx-viewport demo-container">
+        <div id="zoomedChart2"></div>
+        <div id="rangeSelector2"></div>
+    </div>
+
+</div>
 
 </body>
 <script src="js/messages.js"></script>
@@ -96,6 +129,17 @@
 <script src="js/loadUnits.js"></script>
 <script src="js/loadSection.js"></script>
 <script src="js/navigateBack.js"></script>
+
+<!-- ... -->
+<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+
+<!-- DevExtreme theme -->
+<link rel="stylesheet" href="graphs/Lib/css/dx.light.css">
+
+<!-- DevExtreme library -->
+<script type="text/javascript" src="graphs/Lib/js/dx.all.js"></script>
+
+<script src="js/loadGraphs.js"></script>
 <script>
     const messages = document.getElementById("notifications")
     if(window.navigator.onLine === false){
@@ -104,6 +148,8 @@
     const units = document.getElementById("units")
     const unit = document.getElementById("unit")
     const section = document.getElementById("section")
+    const history = document.getElementById("sec-history")
+    const loadHistory = document.getElementById("show-history")
     const title = document.getElementById("title")
     const timestamp = document.getElementById("lastUpdate")
     let lastUnitId;
@@ -111,4 +157,5 @@
 
 </script>
 <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+<script src="js/datepicker.min.js"></script>
 </html>
