@@ -163,7 +163,7 @@ body{
     background-position: center;
     background-size:cover
 }
-.sec-item.hum{
+.sec-item.humidity{
     background-image: url("../img/FrameHum.jpg");
     background-position: center;
     background-size:cover
@@ -177,7 +177,7 @@ body{
 .sec-item.temp h2{
     color: #704d00;
 }
-.sec-item.hum h2{
+.sec-item.humidity h2{
     color: #006370;
 }
 

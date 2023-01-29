@@ -1,9 +1,12 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 header('Content-Type: application/json; charset=utf-8');
+
+session_start();
+if(!isset($_SESSION["user"])){
+    header("HTTP/1.1 401 Unauthorized");
+    die("unauthorized");
+}
+
 $config = include "../config.php";
 // Create connection
 $conn = mysqli_connect($config["servername"], $config["username"], $config["password"], $config["database"]);
@@ -13,11 +16,6 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-session_start();
-if(!isset($_SESSION["user"])){
-    header("HTTP/1.1 401 Unauthorized");
-    die("unauthorized");
-}
 
 //GET
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

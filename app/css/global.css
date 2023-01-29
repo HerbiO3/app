@@ -823,10 +823,6 @@ video {
   max-width: 1280px;
 }
 
-.max-w-sm {
-  max-width: 24rem;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1478,7 +1474,7 @@ body{
   background-size:cover
 }
 
-.sec-item.hum{
+.sec-item.humidity{
   background-image: url("../img/FrameHum.jpg");
   background-position: center;
   background-size:cover
@@ -1496,7 +1492,7 @@ body{
   color: #704d00;
 }
 
-.sec-item.hum h2{
+.sec-item.humidity h2{
   color: #006370;
 }
 

@@ -41,13 +41,16 @@ function openSection(name, id){
             const h2 = document.createElement("h2")
             h2.innerText = data.name
             localStorage.setItem("section-"+id,JSON.stringify(data));
-
-            createItem("Hladina v nádrži","level",data.waterLevel*100 + "%",section)
-            createItem("UV index","uv",data.uvIndex,section)
-            createItem("Teplota vzduchu","temp",data.airTemperature + "°",section)
-            data.humidity.forEach((sensor)=>{
-                createItem("Vlhkosť v kvetináči ("+sensor.sensorId+")","hum",sensor.value*100 + "%",section)
+            data.sensors.forEach((sensor)=>{
+                createItem(sensor.name,sensor.type,sensor.value,section)
             })
+
+            // createItem("Hladina v nádrži","level",data.waterLevel*100 + "%",section)
+            // createItem("UV index","uv",data.uvIndex,section)
+            // createItem("Teplota vzduchu","temp",data.airTemperature + "°",section)
+            // data.humidity.forEach((sensor)=>{
+            //     createItem("Vlhkosť v kvetináči ("+sensor.sensorId+")","hum",sensor.value*100 + "%",section)
+            // })
             setTime(data.time);
 
         }).catch(function(e) {
@@ -76,7 +79,19 @@ function createItem(name, type, value, section) {
     h2.innerText = name
     item.append(h2)
     const h4 = document.createElement("h4")
-    h4.innerText = value
+    switch (type){
+        case "level":
+            h4.innerText = value*100 + "%";
+            break;
+        case "humidity":
+            h4.innerText = value*100 + "%";
+            break;
+        case "temp":
+            h4.innerText = parseFloat(value) + "°";
+            break;
+        default:
+            h4.innerText = parseFloat(value).toString()
+    }
     item.append(h4)
 
     item.classList.toggle("sec-item")
@@ -103,11 +118,8 @@ function offlineSection(id) {
 
         setTime(data.time);
 
-        createItem("Hladina v nádrži", "level", data.waterLevel * 100 + "%", section)
-        createItem("UV index", "uv", data.uvIndex, section)
-        createItem("Teplota vzduchu", "temp", data.airTemperature + "°", section)
-        data.humidity.forEach((sensor) => {
-            createItem("Vlhkosť v kvetináči (" + sensor.sensorId + ")", "hum", sensor.value * 100 + "%", section)
+        data.sensors.forEach((sensor)=>{
+            createItem(sensor.name,sensor.type,sensor.value,section)
         })
     }
 }
