@@ -91,37 +91,55 @@
     <p id="lastUpdate" class="shadow bg-white dark:bg-gray-700 dark:text-white"></p>
 </div>
 
-<div id="sec-history" class="flex flex-col items-center justify-center px-6 py-8 mx-auto" style="display: none">
-    <div class="p-6 space-y-4 md:space-y-6 sm:p-8 w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <div date-rangepicker class="flex items-center">
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+<section  id="sec-history" style="display: none; flex-direction: column">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8 w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <h1 class="self-center font-semibold whitespace-nowrap dark:text-white">Zobrazenie histórie</h1>
+            <div date-rangepicker class="flex items-center">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <input datepicker name="start" id="date-start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Vyber dátum od">
                 </div>
-                <input datepicker name="start" id="date-start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Vyber dátum od">
-            </div>
-            <span class="mx-4 text-gray-500">to</span>
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                <span class="mx-4 text-gray-500">to</span>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <input datepicker name="end" id="date-end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Vyber dátum do">
                 </div>
-                <input datepicker name="end" id="date-end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Vyber dátum do">
             </div>
+            <button id="set-history-today" type="submit" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Dnes</button>
+            <button id="set-history-24" type="submit" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Deň</button>
+            <button id="set-history-week" type="submit" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">7 dní</button>
+            <button id="set-history-month" type="submit" class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">30 dní</button>
+            <button id="show-history" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Zobraziť</button>
+
         </div>
-        <button id="show-history" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Zobraziť</button>
-
     </div>
-    <div class="dx-viewport demo-container">
-        <div id="zoomedChart"></div>
-        <div id="rangeSelector"></div>
-    </div>
+    <section id="graphs">
+        <div class="dx-viewport demo-container">
+            <div id="levelChart"></div>
+            <div id="levelRangeSelector"></div>
+        </div>
 
-    <div class="dx-viewport demo-container">
-        <div id="zoomedChart2"></div>
-        <div id="rangeSelector2"></div>
-    </div>
+        <div class="dx-viewport demo-container">
+            <div id="uvChart"></div>
+            <div id="uvRangeSelector"></div>
+        </div>
+        <div class="dx-viewport demo-container">
+            <div id="tempChart"></div>
+            <div id="tempRangeSelector"></div>
+        </div>
+        <div class="dx-viewport demo-container">
+            <div id="humChart"></div>
+            <div id="humRangeSelector"></div>
+        </div>
 
-</div>
+    </section>
+
+</section>
 
 </body>
 <script src="js/messages.js"></script>
@@ -129,6 +147,7 @@
 <script src="js/loadUnits.js"></script>
 <script src="js/loadSection.js"></script>
 <script src="js/navigateBack.js"></script>
+<script src="js/dates.js"></script>
 
 <!-- ... -->
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
@@ -154,7 +173,6 @@
     const timestamp = document.getElementById("lastUpdate")
     let lastUnitId;
     openUnits();
-
 </script>
 <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
 <script src="js/datepicker.min.js"></script>

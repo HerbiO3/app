@@ -1,408 +1,396 @@
 function loadAndShow(){
-    $(() => {
-        function getText(item, text) {
-            return `Hodnota: ${item} - ${text}`;
-        }
+    let url = "/api/sections/?sectionId=1&history=true&dateFrom="+start.value.slice(6, 10)+"/"+start.value.slice(0, 2)+start.value.slice(2, 5)+"&dateTo="+end.value.slice(6, 10)+"/"+end.value.slice(0, 2)+end.value.slice(2, 5)
+    const ms = Date.now();
+    fetch(url+"&time="+ms, {cache: 'no-store'}).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        console.log(data);
+        let waterLevelData = []
+        let UVData = []
+        let tempData = []
+        let humData = []
+        let i=0;
+        const humSeries = [];
 
-        const series = [{
-            argumentField: 'arg',
-            valueField: 'y1',
-        }, {
-            argumentField: 'arg',
-            valueField: 'y2',
-        }];
+        data.sensors.forEach((sensor)=>{
+            switch (sensor.type){
+                case "level":
+                    waterLevelData = sensor.data;
+                    break;
+                case "uv":
+                    UVData = sensor.data;
+                    break;
+                case "temp":
+                    tempData = sensor.data;
+                    break;
+                case "humidity":
+                    sensor.data.forEach(obj => {
+                        obj["value"+i] = obj["value"];
+                        delete obj["value"];
+                    });
+                    humData.push(sensor.data);
+                    humSeries.push({
+                        argumentField: 'time',
+                        valueField: 'value'+i,
+                        name: sensor.name
+                    })
+                    i++;
+                    break;
+            }
+        })
+        let mergedHumData = []
+        humData.forEach((sensor)=>{
+            mergedHumData = mergeObjects(sensor,mergedHumData);
+        })
 
-        $('#zoomedChart').dxChart({
-            palette: 'Harmony Light',
-            dataSource: zoomingData,
-            commonSeriesSettings: {
-                point: {
-                    size: 7,
-                },
-            },
-            series,
-            tooltip: {
-                enabled: true,
-                customizeTooltip(arg) {
-                    return {
-                        text: getText(arg.argument, arg.valueText),
-                    };
-                },
-            },
-            legend: {
-                visible: true,
-            },
-            onLegendClick: function (e) {
-                var series = e.target;
-                if (series.isVisible()) {
-                    series.hide();
-                } else {
-                    series.show();
+        function mergeObjects(array1,array2) {
+            const result = [];
+            for (const object1 of array1) {
+                const object2 = array2.find(obj => obj.time === object1.time);
+                if (object2) {
+                    result.push({ ...object1, ...object2 });
+                }else{
+                    result.push({ ...object1});
                 }
             }
-        });
 
-        $('#rangeSelector').dxRangeSelector({
-            size: {
-                height: 120,
-            },
-            margin: {
-                left: 10,
-            },
-            scale: {
-                minorTickCount: 1,
-            },
-            dataSource: zoomingData,
-            chart: {
-                series,
+            for (const object2 of array2) {
+                const object1 = array1.find(obj => obj.time === object2.time);
+                if (!object1) {
+                    result.push(object2);
+                }
+            }
+            return result;
+        }
+
+        console.log(mergedHumData)
+        //LEVEL
+        $(() => {
+            function getText(item, text) {
+                return `Hodnota: ${item} - ${text}`;
+            }
+
+            const series = [{
+                argumentField: 'time',
+                valueField: 'value',
+                name: 'Water level'
+
+            }];
+
+            $('#levelChart').dxChart({
                 palette: 'Harmony Light',
-            },
-            behavior: {
-                callValueChanged: 'onMoving',
-            },
-            onValueChanged(e) {
-                let zoomedChart = $('#zoomedChart').dxChart('instance');
-                zoomedChart.getArgumentAxis().visualRange(e.value);
-
-                //zoomedChart = $('#zoomedChart2').dxChart('instance');
-                //zoomedChart.getArgumentAxis().visualRange(e.value);
-                let range = DevExpress.viz.dxRangeSelector.getInstance($('#rangeSelector'));
-                let range2 = DevExpress.viz.dxRangeSelector.getInstance($('#rangeSelector2'));
-                range2.setValue(range.getValue())
-            },
-        });
-    });
-
-
-
-    $(() => {
-        const series = [{
-            argumentField: 'arg',
-            valueField: 'y3',
-        }];
-
-        $('#zoomedChart2').dxChart({
-            palette: 'Harmony Light',
-            dataSource: zoomingData,
-            commonSeriesSettings: {
-                point: {
-                    size: 7,
+                dataSource: waterLevelData,
+                commonSeriesSettings: {
+                    point: {
+                        size: 7,
+                    },
                 },
-            },
-            series,
-            legend: {
-                visible: false,
-            },
-        });
-
-        $('#rangeSelector2').dxRangeSelector({
-            size: {
-                height: 120,
-            },
-            margin: {
-                left: 10,
-            },
-            scale: {
-                minorTickCount: 1,
-            },
-            dataSource: zoomingData,
-            chart: {
                 series,
-                palette: 'Harmony Light',
-            },
-            behavior: {
-                callValueChanged: 'onMoving',
-            },
-            onValueChanged(e) {
-                let zoomedChart = $('#zoomedChart2').dxChart('instance');
-                zoomedChart.getArgumentAxis().visualRange(e.value);
-                //zoomedChart = $('#zoomedChart').dxChart('instance');
-                //zoomedChart.getArgumentAxis().visualRange(e.value);
-                let range = DevExpress.viz.dxRangeSelector.getInstance($('#rangeSelector'));
-                let range2 = DevExpress.viz.dxRangeSelector.getInstance($('#rangeSelector2'));
-                range.setValue(range2.getValue())
+                valueAxis: {
+                    name: 'value',
+                    valueType: "numeric"
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip(arg) {
+                        return {
+                            text: getText(arg.argument, arg.valueText),
+                        };
+                    },
+                },
+                legend: {
+                    visible: true,
+                },
+                onLegendClick: function (e) {
+                    var series = e.target;
+                    if (series.isVisible()) {
+                        series.hide();
+                    } else {
+                        series.show();
+                    }
+                }
+            });
 
-            },
+            $('#levelRangeSelector').dxRangeSelector({
+                size: {
+                    height: 120,
+                },
+                margin: {
+                    left: 10,
+                },
+                scale: {
+                    minorTickCount: 1,
+                },
+                dataSource: waterLevelData,
+                chart: {
+                    series,
+                    palette: 'Harmony Light',
+                    valueAxis: {
+                        name: 'value',
+                        valueType: "numeric",
+                        type: "logarithmic"
+                    },
+                },
+                behavior: {
+                    callValueChanged: 'onMoving',
+                },
+                onValueChanged(e) {
+                    let zoomedChart = $('#levelChart').dxChart('instance');
+                    zoomedChart.getArgumentAxis().visualRange(e.value);
+
+                    let rangeLevel = DevExpress.viz.dxRangeSelector.getInstance($('#levelRangeSelector'));
+                    let othersRange = [
+                        DevExpress.viz.dxRangeSelector.getInstance($('#uvRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#tempRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#humRangeSelector')),
+                    ]
+                    othersRange.forEach((range)=>{
+                        range.setValue(rangeLevel.getValue())
+                    })
+                },
+            });
         });
+
+        //UV
+        $(() => {
+            function getText(item, text) {
+                return `Hodnota: ${item} - ${text}`;
+            }
+
+            const series = [{
+                argumentField: 'time',
+                valueField: 'value',
+                name: 'UV index'
+
+            }];
+
+            $('#uvChart').dxChart({
+                palette: 'Harmony Light',
+                dataSource: UVData,
+                commonSeriesSettings: {
+                    point: {
+                        size: 7,
+                    },
+                },
+                series,
+                valueAxis: {
+                    name: 'value',
+                    valueType: "numeric"
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip(arg) {
+                        return {
+                            text: getText(arg.argument, arg.valueText),
+                        };
+                    },
+                },
+                legend: {
+                    visible: true,
+                },
+                onLegendClick: function (e) {
+                    var series = e.target;
+                    if (series.isVisible()) {
+                        series.hide();
+                    } else {
+                        series.show();
+                    }
+                }
+            });
+
+            $('#uvRangeSelector').dxRangeSelector({
+                size: {
+                    height: 120,
+                },
+                margin: {
+                    left: 10,
+                },
+                scale: {
+                    minorTickCount: 1,
+                },
+                dataSource: UVData,
+                chart: {
+                    series,
+                    palette: 'Harmony Light',
+                },
+                behavior: {
+                    callValueChanged: 'onMoving',
+                },
+                onValueChanged(e) {
+                    let zoomedChart = $('#uvChart').dxChart('instance');
+                    zoomedChart.getArgumentAxis().visualRange(e.value);
+
+                    let rangeLevel = DevExpress.viz.dxRangeSelector.getInstance($('#uvRangeSelector'));
+                    let othersRange = [
+                        DevExpress.viz.dxRangeSelector.getInstance($('#levelRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#tempRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#humRangeSelector')),
+                    ]
+                    othersRange.forEach((range)=>{
+                        range.setValue(rangeLevel.getValue())
+                    })
+                },
+            });
+        });
+        //TEMP
+        $(() => {
+            function getText(item, text) {
+                return `Hodnota: ${item} - ${text}`;
+            }
+
+            const series = [{
+                argumentField: 'time',
+                valueField: 'value',
+                name: 'Teplota'
+
+            }];
+
+            $('#tempChart').dxChart({
+                palette: 'Harmony Light',
+                dataSource: tempData,
+                commonSeriesSettings: {
+                    point: {
+                        size: 7,
+                    },
+                },
+                series,
+                valueAxis: {
+                    name: 'value',
+                    valueType: "numeric"
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip(arg) {
+                        return {
+                            text: getText(arg.argument, arg.valueText),
+                        };
+                    },
+                },
+                legend: {
+                    visible: true,
+                },
+                onLegendClick: function (e) {
+                    var series = e.target;
+                    if (series.isVisible()) {
+                        series.hide();
+                    } else {
+                        series.show();
+                    }
+                }
+            });
+
+            $('#tempRangeSelector').dxRangeSelector({
+                size: {
+                    height: 120,
+                },
+                margin: {
+                    left: 10,
+                },
+                scale: {
+                    minorTickCount: 1,
+                },
+                dataSource: tempData,
+                chart: {
+                    series,
+                    palette: 'Harmony Light',
+                },
+                behavior: {
+                    callValueChanged: 'onMoving',
+                },
+                onValueChanged(e) {
+                    let zoomedChart = $('#tempChart').dxChart('instance');
+                    zoomedChart.getArgumentAxis().visualRange(e.value);
+
+                    let rangeLevel = DevExpress.viz.dxRangeSelector.getInstance($('#tempRangeSelector'));
+                    let othersRange = [
+                        DevExpress.viz.dxRangeSelector.getInstance($('#levelRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#uvRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#humRangeSelector')),
+                    ]
+                    othersRange.forEach((range)=>{
+                        range.setValue(rangeLevel.getValue())
+                    })
+                },
+            });
+        });
+        //HUM
+        $(() => {
+            function getText(item, text) {
+                return `Hodnota: ${item} - ${text}`;
+            }
+
+            const series = humSeries;
+
+            $('#humChart').dxChart({
+                palette: 'Harmony Light',
+                dataSource: mergedHumData,
+                commonSeriesSettings: {
+                    point: {
+                        size: 7,
+                    },
+                },
+                series,
+                valueAxis: {
+                    name: 'value',
+                    valueType: "numeric"
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip(arg) {
+                        return {
+                            text: getText(arg.argument, arg.valueText),
+                        };
+                    },
+                },
+                legend: {
+                    visible: true,
+                },
+                onLegendClick: function (e) {
+                    var series = e.target;
+                    if (series.isVisible()) {
+                        series.hide();
+                    } else {
+                        series.show();
+                    }
+                }
+            });
+
+            $('#humRangeSelector').dxRangeSelector({
+                size: {
+                    height: 120,
+                },
+                margin: {
+                    left: 10,
+                },
+                scale: {
+                    minorTickCount: 1,
+                },
+                dataSource: mergedHumData,
+                chart: {
+                    series,
+                    palette: 'Harmony Light',
+                },
+                behavior: {
+                    callValueChanged: 'onMoving',
+                },
+                onValueChanged(e) {
+                    let zoomedChart = $('#humChart').dxChart('instance');
+                    zoomedChart.getArgumentAxis().visualRange(e.value);
+
+                    let rangeLevel = DevExpress.viz.dxRangeSelector.getInstance($('#humRangeSelector'));
+                    let othersRange = [
+                        DevExpress.viz.dxRangeSelector.getInstance($('#levelRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#uvRangeSelector')),
+                        DevExpress.viz.dxRangeSelector.getInstance($('#tempRangeSelector')),
+                    ]
+                    othersRange.forEach((range)=>{
+                        range.setValue(rangeLevel.getValue())
+                    })
+                },
+            });
+        });
+
+    }).catch(function(e) {
+        console.log(e)
     });
-
-
-
-
-    const zoomingData = [
-        {
-            arg: 10, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 20, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 40, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 50, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 60, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 75, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 80, y1: 30, y2: 50, y3: 13,
-        },
-        {
-            arg: 90, y1: 40, y2: 50, y3: 14,
-        },
-        {
-            arg: 100, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 105, y1: 40, y2: 175, y3: 120,
-        },
-        {
-            arg: 110, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 120, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 130, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 140, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 150, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 160, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 170, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 180, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 185, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 190, y1: 30, y2: 100, y3: 13,
-        },
-        {
-            arg: 200, y1: 40, y2: 110, y3: 14,
-        },
-        {
-            arg: 210, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 220, y1: 40, y2: 95, y3: 120,
-        },
-        {
-            arg: 230, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 240, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 255, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 270, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 280, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 290, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 295, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 300, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 310, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 320, y1: 30, y2: 100, y3: 13,
-        },
-        {
-            arg: 330, y1: 40, y2: 110, y3: 14,
-        },
-        {
-            arg: 340, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 350, y1: 40, y2: 95, y3: 120,
-        },
-        {
-            arg: 360, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 367, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 370, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 380, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 390, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 400, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 410, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 420, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 430, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 440, y1: 30, y2: 100, y3: 13,
-        },
-        {
-            arg: 450, y1: 40, y2: 110, y3: 14,
-        },
-        {
-            arg: 460, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 470, y1: 40, y2: 95, y3: 120,
-        },
-        {
-            arg: 480, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 490, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 500, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 510, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 520, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 530, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 540, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 550, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 555, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 560, y1: 30, y2: 100, y3: 13,
-        },
-        {
-            arg: 570, y1: 40, y2: 110, y3: 14,
-        },
-        {
-            arg: 580, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 590, y1: 40, y2: 95, y3: 12,
-        },
-        {
-            arg: 600, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 610, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 620, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 630, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 640, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 650, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 660, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 670, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 680, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 690, y1: 30, y2: 100, y3: 13,
-        },
-        {
-            arg: 700, y1: 40, y2: 110, y3: 14,
-        },
-        {
-            arg: 710, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 720, y1: 40, y2: 95, y3: 120,
-        },
-        {
-            arg: 730, y1: 20, y2: 190, y3: 130,
-        },
-        {
-            arg: 740, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 750, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 760, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 770, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 780, y1: -20, y2: 20, y3: 30,
-        },
-        {
-            arg: 790, y1: -39, y2: 50, y3: 19,
-        },
-        {
-            arg: 800, y1: -10, y2: 10, y3: 15,
-        },
-        {
-            arg: 810, y1: 10, y2: 10, y3: 15,
-        },
-        {
-            arg: 820, y1: 30, y2: 100, y3: 13,
-        },
-        {
-            arg: 830, y1: 40, y2: 110, y3: 14,
-        },
-        {
-            arg: 840, y1: 50, y2: 90, y3: 90,
-        },
-        {
-            arg: 850, y1: 40, y2: 95, y3: 120,
-        },
-        {
-            arg: 860, y1: -12, y2: 10, y3: 32,
-        },
-        {
-            arg: 870, y1: -32, y2: 30, y3: 12,
-        },
-        {
-            arg: 880, y1: -20, y2: 20, y3: 30,
-        },
-    ];
-
 }
