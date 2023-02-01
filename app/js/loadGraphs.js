@@ -1,5 +1,8 @@
 function loadAndShow(){
-    let url = "/api/sections/?sectionId=1&history=true&dateFrom="+start.value.slice(6, 10)+"/"+start.value.slice(0, 2)+start.value.slice(2, 5)+"&dateTo="+end.value.slice(6, 10)+"/"+end.value.slice(0, 2)+end.value.slice(2, 5)
+    if (!openedSectionId){
+        return;
+    }
+    let url = "/api/sections/?sectionId="+openedSectionId+"&history=true&dateFrom="+start.value.slice(6, 10)+"/"+start.value.slice(0, 2)+start.value.slice(2, 5)+"&dateTo="+end.value.slice(6, 10)+"/"+end.value.slice(0, 2)+end.value.slice(2, 5)
     const ms = Date.now();
     fetch(url+"&time="+ms, {cache: 'no-store'}).then(function(response) {
         return response.json();
@@ -212,6 +215,12 @@ function loadAndShow(){
                 chart: {
                     series,
                     palette: 'Harmony Light',
+                    valueAxis: {
+                        name: 'value',
+                        valueType: "numeric",
+                        type: "logarithmic"
+                    },
+
                 },
                 behavior: {
                     callValueChanged: 'onMoving',
@@ -293,6 +302,11 @@ function loadAndShow(){
                 chart: {
                     series,
                     palette: 'Harmony Light',
+                    valueAxis: {
+                        name: 'value',
+                        valueType: "numeric",
+                        type: "logarithmic"
+                    },
                 },
                 behavior: {
                     callValueChanged: 'onMoving',
@@ -369,6 +383,11 @@ function loadAndShow(){
                 chart: {
                     series,
                     palette: 'Harmony Light',
+                    valueAxis: {
+                        name: 'value',
+                        valueType: "numeric",
+                        type: "logarithmic"
+                    },
                 },
                 behavior: {
                     callValueChanged: 'onMoving',

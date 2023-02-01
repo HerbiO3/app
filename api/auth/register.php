@@ -23,10 +23,10 @@ if(isset($_GET['username']) && isset($_GET['password']) && isset($_GET['password
     $superuser = 0;
     $stmt->bind_param("ssi", $_GET['username'], $crypt_pass, $superuser);
     $stmt->execute();
-    header("Location: ../../app/index.php");
+    header("Location: ../../app/settings.php");
     die();
 } else{
-    header("Location: ../../app/index.php");
+    header("Location: ../../app/settings.php");
     die();
 }
 ?>

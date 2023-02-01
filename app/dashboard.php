@@ -24,26 +24,14 @@
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-1.5 dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
             <div class="flex items-center md:order-1">
-                <button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false">
+                <button type="button" class="flex text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false">
                     <img id="back" class="w-10 h-10 rounded-full" src="img/icons/back.svg" alt="back">
                 </button>
             </div>
             <div class="flex items-center md:order-2">
                 <h1 id="title" class="self-center font-semibold whitespace-nowrap dark:text-white">VÝBER JEDNOTKY</h1>
             </div>
-<!--            <div class="flex items-center md:order-3">-->
-<!--                <div class="flex items-center md:order-2">-->
-<!--                    <a href="settings.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">-->
-<!--                        <img class="w-10 h-10 rounded-full" src="img/icons/settings.svg" alt="user photo">-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--                <div class="flex items-center md:order-2">-->
-<!--                    <a href="/api/auth/logout.php" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">-->
-<!--                        <img class="w-10 h-10 rounded-full" src="img/icons/logout.svg" alt="user photo">-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-            <button type="button" class="md:order-3 flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+            <button type="button" class="md:order-3 flex text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <span class="sr-only">Open settings</span>
                 <img class="w-10 h-10 rounded-full" src="img/icons/settings.svg" alt="settings">
             </button>
@@ -172,6 +160,7 @@
     const title = document.getElementById("title")
     const timestamp = document.getElementById("lastUpdate")
     let lastUnitId;
+    let openedSectionId;
     openUnits();
 </script>
 <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>

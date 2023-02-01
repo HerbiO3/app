@@ -14,6 +14,7 @@ function openSection(name, id){
                     unit.style.display="none";
                     section.style.display="inline-flex";
                     title.innerText="SEKCIA " + name;
+                    openedSectionId = id;
 
                     history.style.display="flex";
                     //loadHistory.replaceWith(loadHistory.cloneNode(true));
@@ -81,16 +82,16 @@ function createItem(name, type, value, section) {
     const h4 = document.createElement("h4")
     switch (type){
         case "level":
-            h4.innerText = value*100 + "%";
+            h4.innerText = (value*100).toFixed(0) + "%";
             break;
         case "humidity":
-            h4.innerText = value*100 + "%";
+            h4.innerText = (value*100).toFixed(1) + "%";
             break;
         case "temp":
-            h4.innerText = parseFloat(value) + "°";
+            h4.innerText = parseFloat(value).toFixed(1) + "°";
             break;
         default:
-            h4.innerText = parseFloat(value).toString()
+            h4.innerText = parseFloat(value).toFixed(1).toString()
     }
     item.append(h4)
 
@@ -111,6 +112,7 @@ function offlineSection(id) {
         section.style.display="inline-flex";
         history.style.display="flex";
         title.innerText="SEKCIA " + name;
+        openedSectionId = id;
 
         section.innerHTML='';
         const h2 = document.createElement("h2")
