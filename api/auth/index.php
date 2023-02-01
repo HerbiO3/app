@@ -33,6 +33,7 @@ if(isset($_GET['username']) && isset($_GET['password'])){
         //uspešné prihlásenie
         session_start();
         $_SESSION["user"]=$value->id;
+        $_SESSION["super"]=$value->superuser;
         header("Location: ../../app/dashboard.php");
     }
 } else{
