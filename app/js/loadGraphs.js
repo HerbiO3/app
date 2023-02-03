@@ -5,6 +5,22 @@ function loadAndShow(){
     let url = "/api/sections/?sectionId="+openedSectionId+"&history=true&dateFrom="+start.value.slice(6, 10)+"/"+start.value.slice(0, 2)+start.value.slice(2, 5)+"&dateTo="+end.value.slice(6, 10)+"/"+end.value.slice(0, 2)+end.value.slice(2, 5)
     const ms = Date.now();
     fetch(url+"&time="+ms, {cache: 'no-store'}).then(function(response) {
+        switch (response.status) {
+            case 200:
+                break;
+            case 401:
+                const error = new Error("Unauthorized");
+                error.name = '401';
+                throw error;
+            case 404:
+                const error404 = new Error("Not found");
+                error404.name = '404';
+                throw error;
+            default:
+                const errordef = new Error("Server Error");
+                errordef.name = 'other';
+                throw errordef;
+        }
         return response.json();
     }).then(function(data) {
         console.log(data);
@@ -409,7 +425,23 @@ function loadAndShow(){
             });
         });
 
+        document.getElementById("graphs").style.display="block";
+
     }).catch(function(e) {
         console.log(e)
+        switch (e.name){
+            case "401":
+                window.location.replace("index.php?reqlog=true");
+                return;
+            case "404":
+                appendMessage("danger", "Nepodarilo sa nájsť sekciu.")
+                return;
+            case "other":
+                appendMessage("danger", "Chyba servera.")
+                return;
+            default:
+                appendOffile()
+        }
+
     });
 }

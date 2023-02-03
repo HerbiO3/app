@@ -162,68 +162,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            01:21:10
-                        </th>
-                        <td class="px-6 py-4">
-                            email
-                        </td>
-                        <td class="px-6 py-4">
-                            update
-                        </td>
-                        <td class="px-6 py-4">
-                            section id 5
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            01:21:10
-                        </th>
-                        <td class="px-6 py-4">
-                            email
-                        </td>
-                        <td class="px-6 py-4">
-                            update
-                        </td>
-                        <td class="px-6 py-4">
-                            section id 5
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            01:21:10
-                        </th>
-                        <td class="px-6 py-4">
-                            email
-                        </td>
-                        <td class="px-6 py-4">
-                            update
-                        </td>
-                        <td class="px-6 py-4">
-                            section id 5
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            01:21:10
-                        </th>
-                        <td class="px-6 py-4">
-                            email
-                        </td>
-                        <td class="px-6 py-4">
-                            update
-                        </td>
-                        <td class="px-6 py-4">
-                            section id 5
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
             <nav class="flex flex-col items-center">
                 <span class="text-sm text-gray-700 dark:text-gray-400">
-                    Showing <span id="from-entry" class="font-semibold text-gray-900 dark:text-white">1</span> do <span id="to-entry" class="font-semibold text-gray-900 dark:text-white">10</span> z <span id="total-entry" class="font-semibold text-gray-900 dark:text-white">100</span> Záznamov
+                    Zobrazuje sa od <span id="from-entry" class="font-semibold text-gray-900 dark:text-white">1</span> do <span id="to-entry" class="font-semibold text-gray-900 dark:text-white">10</span> z <span id="total-entry" class="font-semibold text-gray-900 dark:text-white">100</span> Záznamov
                 </span>
                 <ul class="inline-flex items-center -space-x-px">
                     <li>

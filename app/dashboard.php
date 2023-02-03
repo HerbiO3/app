@@ -106,7 +106,7 @@
 
         </div>
     </div>
-    <section id="graphs">
+    <section id="graphs" style="margin-left: 2vw; margin-right: 2vw">
         <div class="dx-viewport demo-container">
             <div id="levelChart"></div>
             <div id="levelRangeSelector"></div>
