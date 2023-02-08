@@ -17,6 +17,8 @@ function openSection(name, id){
                     openedSectionId = id;
 
                     history.style.display="flex";
+                    sectionSettings.style.display="flex";
+                    settingsButton.addEventListener("click", openSettings)
                     //loadHistory.replaceWith(loadHistory.cloneNode(true));
                     //loadHistory.removeEventListener("click", openGraphs);
                     loadHistory.addEventListener("click", loadAndShow);
@@ -111,6 +113,8 @@ function offlineSection(id) {
         unit.style.display="none";
         section.style.display="inline-flex";
         history.style.display="flex";
+        sectionSettings.style.display="flex";
+        settingsButton.addEventListener("click", openSettings)
         title.innerText="SEKCIA " + name;
         openedSectionId = id;
 

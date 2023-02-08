@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $perPage = isset($_GET["per_page"]) ? (int)$_GET["per_page"] : 10;
     $offset = ($page - 1) * $perPage;
 
-    $query = "SELECT SQL_CALC_FOUND_ROWS audit_log.time, user.email as email, audit_log.type, audit_log.info FROM audit_log join user on audit_log.user = user.id ORDER BY audit_log.time ASC LIMIT ?, ?";
+    $query = "SELECT SQL_CALC_FOUND_ROWS audit_log.time, user.email as email, audit_log.type, audit_log.info FROM audit_log join user on audit_log.user = user.id ORDER BY audit_log.time DESC LIMIT ?, ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ii", $offset, $perPage);
     $stmt->execute();

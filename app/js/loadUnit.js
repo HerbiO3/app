@@ -14,6 +14,7 @@ function openUnit(id){
                     units.style.display="none";
                     section.style.display="none";
                     history.style.display="none";
+                    sectionSettings.style.display="none";
                     document.getElementById("graphs").style.display="none";
                     unit.style.display="block";
                     title.innerText="VÝBER SEKCIE"
@@ -80,6 +81,7 @@ function offlineSections(id){
         units.style.display = "none";
         section.style.display = "none";
         history.style.display="none";
+        sectionSettings.style.display="none";
         document.getElementById("graphs").style.display="none";
         unit.style.display = "block";
         title.innerText = "VÝBER SEKCIE"

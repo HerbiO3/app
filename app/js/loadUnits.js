@@ -13,6 +13,7 @@ function openUnits() {
                     unit.style.display="none";
                     section.style.display="none";
                     history.style.display="none";
+                    sectionSettings.style.display="none";
 
                     title.innerText="VÝBER JEDNOTKY"
                     break;
@@ -72,6 +73,7 @@ function offlineUnits() {
         unit.style.display = "none";
         section.style.display = "none";
         history.style.display="none";
+        sectionSettings.style.display="none";
 
         title.innerText = "VÝBER JEDNOTKY"
 
