@@ -28,9 +28,13 @@ const errorSpanDiv = document.getElementById('err-msg-div')
 function displayErrorMessage(msg) {
     errorSpanDiv.classList.remove('hidden')
     errorSpan.innerHTML = msg
+    document.getElementById("validate-form-button").disabled = false;
 }
 
+document.getElementById("validate-form-button").addEventListener('click', settingsValidator)
+
 function settingsValidator () {
+    document.getElementById("validate-form-button").disabled = true;
     if(wateringTime.value <= 0) {
         displayErrorMessage("neplatná doba zavlažovania", wateringTime)
         return
@@ -38,8 +42,23 @@ function settingsValidator () {
     if(document.getElementById('radio-timed').checked) {
         let inputDate1 = document.getElementById('date-time-1');
         let inputDate2 = document.getElementById('date-time-2');
-        if(!inputDate1.value || !inputDate2.value) {
+        if (!inputDate1.value || !inputDate2.value) {
             displayErrorMessage("neplatný čas závlahy")
+            return
+        }
+        let date = new Date();
+        let dateStr = date.getFullYear() +  "-" +
+            ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+            ("00" + date.getDate()).slice(-2) + "T" +
+            ("00" + date.getHours()).slice(-2) + ":" +
+            ("00" + date.getMinutes()).slice(-2) + ":" +
+            ("00" + date.getSeconds()).slice(-2);
+        if (inputDate1.value <= dateStr) {
+            displayErrorMessage("neplatný čas závlahy (čas v minulosti)")
+            return
+        }
+        if (!(inputDate1.value < inputDate2.value)) {
+            displayErrorMessage("časy závlah musia ísť chronologicky za sebou")
             return
         }
     } else if(document.getElementById('radio-auto').checked) {
@@ -66,7 +85,9 @@ function formSubmit() {
         } else if (request.readyState === 4) {
             if (!errorSpanDiv.classList.contains('hidden')) errorSpanDiv.classList.add('hidden')
             document.getElementById("setting-modal-close").click();
+            document.getElementById("validate-form-button").disabled = false;
             console.log(request.responseText)
+
         }
     }
     request.open('POST', "../../api/sections/settings.php", true);
