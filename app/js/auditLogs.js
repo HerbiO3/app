@@ -4,10 +4,22 @@ let from
 let to = 0;
 let total
 let max = 0;
-async function fetchItems(page = 1, itemsPerPage = 10) {
+let email = null;
+let del = (document.querySelector("#type-delete").checked)
+let init = (document.querySelector("#type-init").checked)
+let update = (document.querySelector("#type-update").checked)
+let create = (document.querySelector("#type-create").checked)
+
+async function fetchItems(email, page = 1, itemsPerPage = 10) {
+    del = (document.querySelector("#type-delete").checked)
+    init = (document.querySelector("#type-init").checked)
+    update = (document.querySelector("#type-update").checked)
+    create = (document.querySelector("#type-create").checked)
+
     const response = await fetch(
-        `${API_URL}?page=${page}&per_page=${itemsPerPage}`
+        `${API_URL}?page=${page}&per_page=${itemsPerPage}&email=${email}&delete=${del}&update=${update}&create=${create}&init=${init}`
     );
+    console.log(response.url)
     from = (page-1)*itemsPerPage+1;
     to = page*itemsPerPage;
     return response.json();
@@ -15,7 +27,7 @@ async function fetchItems(page = 1, itemsPerPage = 10) {
 
 async function displayPage(page) {
 
-    const data = await fetchItems(page);
+    const data = await fetchItems(email, page);
     // Clear existing items from the page
     while (table.rows.length > 1) {
         table.deleteRow(1);
@@ -44,9 +56,6 @@ async function displayPage(page) {
     document.querySelector("#from-entry").innerText = from;
     document.querySelector("#to-entry").innerText = Math.min(max, to);
     document.querySelector("#total-entry").innerText = max;
-
-    //document.querySelector("#total-entry").innerText = total;
-
 }
 
 // Display the first page when the page loads
@@ -65,3 +74,10 @@ document.querySelector("#previous-page").addEventListener("click", () => {
         displayPage(currentPage - 1);
     }
 });
+
+document.querySelector("#email-filter").addEventListener("click", () => {
+    email = document.querySelector("#search-dropdown").value
+    if (email === "") email = null;
+    displayPage(1);
+});
+
