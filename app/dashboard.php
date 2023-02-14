@@ -80,7 +80,7 @@
     </button>
 </div>
 
-<div id="settings-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+<div id="settings-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full md:h-full">
     <div class="relative w-full h-full max-w-2xl md:h-auto">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -188,14 +188,14 @@
                         <input type="datetime-local" name="datetime-start" id="date-time-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-base hover:bg-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"/>
                         <input type="datetime-local" name="datetime-next" id="date-time-2" class="bg-gray-50 border border-gray-300 text-gray-900 text-base hover:bg-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center mr-2 mb-2 dark:border-gray-600 dark:text-white dark:bg-gray-700 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-800"/>
                     </div>
-                    <!-- Modal footer -->
-                    <div class="flex items-center p-x space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <button type="button" id="validate-form-button" class="w-3/5 mt-4 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Vykonaj</button>
-                    </div>
-                    <div id="err-msg-div" class="hidden">
-                        <span id="err-msg" class="text-red-600 font-bold"></span>
-                    </div>
                 </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="items-center p-x space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <div id="err-msg-div" class="hidden pt-2.5">
+                    <span id="err-msg" class="text-red-600 font-bold"></span>
+                </div>
+                <button type="button" id="validate-form-button" class="w-3/5 my-4 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Vykonaj</button>
             </div>
         </div>
     </div>
