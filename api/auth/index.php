@@ -29,7 +29,10 @@ if(isset($_GET['username']) && isset($_GET['password'])){
     if(is_null($value) || !password_verify($_GET['password'], $value->password)){
         //neuspešné prihlásenie
         header("Location: ../../app/index.php?badcred=true");
-    }else{
+    } else if (!$value->verified) {
+        //prihlásenie neovereného používateľa
+        header("Location: ../../app/index.php?unverified=true");
+    } else{
         //uspešné prihlásenie
         session_start();
         $_SESSION["user"]=$value->id;

@@ -84,6 +84,7 @@
     });
     if(params.badcred === "true") appendMessage("danger", "Boli zadané nesprávne prihlasovacie údaje!");
     if(params.reqlog === "true") appendMessage("danger", "Najprv sa musíš prihlásiť!");
+    if(params.unverified === "true") appendMessage("danger", "Tvoj účet doposiaľ nebol overený administrátorm!");
     if(params.logout === "true") {
         localStorage.clear();
         appendMessage("info", "Odhlásenie prebehlo úspešne!")
