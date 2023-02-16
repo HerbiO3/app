@@ -61,17 +61,8 @@
 <div id="notifications">
     <p id="offline" class="danger" style="display: none"></p>
 </div>
-<!--<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">-->
-<!--    <div class="bg-gray-50 dark:bg-gray-900 w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">-->
-<!--        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">-->
-<!--            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">-->
-<!--                Nastavenia sekcie-->
-<!--            </h1>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
 
-<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
     <div class="bg-gray-50 dark:bg-gray-900 w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -194,6 +185,78 @@
     </div>
 </section>
 
+<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
+    <div class="bg-gray-50 dark:bg-gray-900 w-full sm:w-9/12 bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Zmena právomocí používateľov
+            </h1>
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="flex items-center justify-between pb-4">
+                    <form>
+                        <div class="flex">
+                            <div class="relative w-full">
+                                <input type="search" id="search-user-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Email" required>
+                                <button type='button' id="user-email-filter" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    <span class="sr-only">Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <form>
+                    <table id="users" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                ID
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                verified
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                superuser
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <nav class="flex flex-col items-center">
+                <span class="text-sm text-gray-700 dark:text-gray-400">
+                    Zobrazuje sa od <span id="from-entry-users" class="font-semibold text-gray-900 dark:text-white">1</span> do <span id="to-entry-users" class="font-semibold text-gray-900 dark:text-white">10</span> z <span id="total-entry-users" class="font-semibold text-gray-900 dark:text-white">100</span> Záznamov
+                </span>
+                <ul class="inline-flex items-center -space-x-px">
+                    <li>
+                        <a id="previous-page-users" class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Previous</span>
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="current-page-users" aria-current="page" class="z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">1</a>
+                    </li>
+                    <li>
+                        <a id="next-page-users" class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Next</span>
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
 <div>
     <small style="display: block; margin-top: 10px" class="dark:text-white">Posledná aktualizácia:</small>
     <p id="lastUpdate" class="shadow bg-white dark:bg-gray-700 dark:text-white"></p>
@@ -202,6 +265,7 @@
 </body>
 <script src="js/messages.js"></script>
 <script src="js/auditLogs.js"></script>
+<script src="js/userManager.js"></script>
 <script>
     const messages = document.getElementById("notifications")
     if(window.navigator.onLine === false){
