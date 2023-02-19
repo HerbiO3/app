@@ -91,10 +91,10 @@ function openSettings() {
         //     openDateTime2.innerHTML = '🕒 ' + data.waterNext
         // }
         if (data.waterStart != null) {
-            dateTime1.value = data.waterStart
+            dateTime1.value = data.waterStart.replace(/\s/g, "T");
         }
         if (data.waterNext != null) {
-            dateTime2.value = data.waterNext
+            dateTime2.value = data.waterNext.replace(/\s/g, "T");
         }
         // pickedTimestamp = data.waterStart
         // nextPickedTimestamp = data.waterNext
