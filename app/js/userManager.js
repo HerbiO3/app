@@ -6,7 +6,7 @@ let user_total
 let user_max = 0;
 let user_email = null;
 
-async function fetchItems(email, page = 1, itemsPerPage = 10) {
+async function fetchUserItems(email, page = 1, itemsPerPage = 10) {
     const response = await fetch(
         `${USER_API_URL}?page=${page}&per_page=${itemsPerPage}&email=${email}`
     );
@@ -16,9 +16,9 @@ async function fetchItems(email, page = 1, itemsPerPage = 10) {
     return response.json();
 }
 
-async function displayPage(page) {
+async function displayUserPage(page) {
 
-    const data = await fetchItems(user_email, page);
+    const data = await fetchUserItems(user_email, page);
     // Clear existing items from the page
     while (user_table.rows.length > 1) {
         user_table.deleteRow(1);
@@ -84,26 +84,26 @@ async function displayPage(page) {
 }
 
 // Display the first page when the page loads
-displayPage(1);
+displayUserPage(1);
 
 // Add event listeners for the "Next" and "Previous" buttons
 document.querySelector("#next-page-users").addEventListener("click", () => {
     let currentPage = parseInt(document.querySelector("#current-page-users").innerText);
     if(user_to < user_max){
-        displayPage(currentPage + 1);
+        displayUserPage(currentPage + 1);
     }
 });
 document.querySelector("#previous-page-users").addEventListener("click", () => {
     let currentPage = parseInt(document.querySelector("#current-page-users").innerText);
     if(currentPage > 1){
-        displayPage(currentPage - 1);
+        displayUserPage(currentPage - 1);
     }
 });
 
 document.querySelector("#user-email-filter").addEventListener("click", () => {
     user_email = document.querySelector("#search-user-dropdown").value
     if (user_email === "") user_email = null;
-    displayPage(1);
+    displayUserPage(1);
 });
 
 function changeUserPrivilages(user_id, verified, superuser) {
