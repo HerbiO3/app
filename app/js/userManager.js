@@ -108,18 +108,12 @@ document.querySelector("#user-email-filter").addEventListener("click", () => {
 
 function changeUserPrivilages(user_id, verified, superuser) {
     let xh_request = new XMLHttpRequest();
-
-    xh_request.onreadystatechange=function() {
-        if (xh_request.readyState === 4 && xh_request.status === 200) {
-            console.log(xh_request.responseText)
-        }
-    }
-
     xh_request.open("POST", USER_API_URL+'/index.php', true);
-    xh_request.setRequestHeader('Content-Type', 'application/json');
-    xh_request.send(JSON.stringify({
+    xh_request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    let json_data = {
         userId: user_id,
         verified: verified,
         superUser: superuser
-    }));
+    };
+    xh_request.send(JSON.stringify(json_data));
 }

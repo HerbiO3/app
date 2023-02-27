@@ -51,5 +51,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //TODO
+    $user = json_decode(file_get_contents('php://input'), true);
+    if(!$user['userId']) return;
+
+    $query = "INSERT into audit_log (user, type, info) VALUES  (?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $logType = 'init';
+    $logInfo = 'Executing user ' . '(id ' . $user['userId'] . ')' . ' permissions change';
+    $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
+    $stmt->execute();
+
+    $query = "SELECT * FROM user WHERE id=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user['userId']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $value = mysqli_fetch_object($result);
+    if (is_null($value)) return;
+
+    try {
+        $conn->begin_transaction();
+
+        $query = "UPDATE user SET verified=?, superuser=? WHERE id=?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("iii", $user['verified'], $user['superUser'], $user['userId']);
+        $stmt->execute();
+
+        $query = "INSERT into audit_log (user, type, info) VALUES  (?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $verified = !$user['verified'] ? 0 : 1;
+        $logInfo = 'Change user ' . '(id ' . $user['userId'] . ')' . ' verified to ' . $verified;
+        $logType = 'update';
+        $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
+        $stmt->execute();
+
+        $stmt = $conn->prepare($query);
+        $super_user = !$user['superUser'] ? 0 : 1;
+        $logInfo = 'Change user ' . '(id ' . $user['userId'] . ')' . ' superuser to ' . $super_user;
+        $logType = 'update';
+        $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
+        $stmt->execute();
+
+        $conn->commit();
+    } catch (\Throwable $e) {
+        $conn->rollback();
+    }
 }
