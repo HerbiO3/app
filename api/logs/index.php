@@ -37,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $query_types .= implode(" OR ", $types);
     }
     if(isset($_GET["email"]) && $_GET["email"]!="null"){
-        $query = "SELECT SQL_CALC_FOUND_ROWS audit_log.time, user.email as email, audit_log.type, audit_log.info FROM audit_log join user on audit_log.user = user.id WHERE email = ? AND (".$query_types.") ORDER BY audit_log.time DESC LIMIT ?, ?";
+        $query = "SELECT SQL_CALC_FOUND_ROWS audit_log.time, user.email as email, audit_log.type, audit_log.info FROM audit_log join user on audit_log.user = user.id WHERE email = ? AND (".$query_types.") ORDER BY audit_log.time DESC, audit_log.id DESC LIMIT ?, ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("sii", $_GET["email"], $offset, $perPage);
     }else{
-        $query = "SELECT SQL_CALC_FOUND_ROWS audit_log.time, user.email as email, audit_log.type, audit_log.info FROM audit_log join user on audit_log.user = user.id WHERE ".$query_types." ORDER BY audit_log.time DESC LIMIT ?, ?";
+        $query = "SELECT SQL_CALC_FOUND_ROWS audit_log.time, user.email as email, audit_log.type, audit_log.info FROM audit_log join user on audit_log.user = user.id WHERE ".$query_types." ORDER BY audit_log.time DESC, audit_log.id DESC LIMIT ?, ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("ii", $offset, $perPage);
     }

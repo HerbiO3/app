@@ -5,6 +5,10 @@ error_reporting(E_ALL);
 
 header('Content-Type: application/json; charset=utf-8');
 session_start();
+
+require "../auth/refresh.php";
+refresh_session();
+
 if(!isset($_SESSION["user"]) || !$_SESSION["super"]){
     header("HTTP/1.1 401 Unauthorized");
     die("unauthorized");
