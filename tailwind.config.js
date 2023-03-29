@@ -48,5 +48,6 @@ module.exports = {
   safelist: [
     'hidden',
     'grid-cols-7',
-  ]
+  ],
+  darkMode: 'class'
 }
