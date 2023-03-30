@@ -15,31 +15,6 @@ fetch(url+"&time="+ms, {cache: 'no-store'}).then(function(response) {
 })
 
 function openSettings() {
-
-    // let myPicker = new SimplePicker({
-    //     zIndex: 51
-    // });
-    // let myPicker2 = new SimplePicker({
-    //     zIndex: 51
-    // });
-    // const openDateTime1 = document.getElementById('simplepicker-btn');
-    // const openDateTime2 = document.getElementById('simplepicker-btn-2');
-    // openDateTime1.addEventListener('click', (e) => {
-    //     myPicker.open();
-    // });
-    // openDateTime2.addEventListener('click', (e) => {
-    //     myPicker2.open();
-    // });
-    //
-    // myPicker.on('submit', function(date, readableDate){
-    //     convertDate(date)
-    //     pickedTimestamp = date
-    // })
-    // myPicker2.on('submit', function(date, readableDate){
-    //     convertDate(date)
-    //     nextPickedTimestamp = date
-    // })
-
     const dateTime1 = document.getElementById('date-time-1');
     const dateTime2 = document.getElementById('date-time-2');
 
@@ -80,21 +55,32 @@ function openSettings() {
         humidityText.textContent = data.minHumidity + '%'
         const logInterval = document.getElementById('log-interval')
         logInterval.value = Math.round(data.logInterval / 60000)
-        // if (data.waterStart === null) {
-        //     openDateTime1.innerHTML = '🕒 ' + 'Nenastavený'
-        // } else {
-        //     openDateTime1.innerHTML = '🕒 ' + data.waterStart
-        // }
-        // if (data.waterNext === null) {
-        //     openDateTime2.innerHTML = '🕒 ' + 'Nenastavený'
-        // } else {
-        //     openDateTime2.innerHTML = '🕒 ' + data.waterNext
-        // }
         if (data.waterStart != null) {
-            dateTime1.value = data.waterStart.replace(/\s/g, "T");
-        }
-        if (data.waterNext != null) {
-            dateTime2.value = data.waterNext.replace(/\s/g, "T");
+            if (new Date(data.waterStart) < new Date()) {
+                console.log('prepocitat');
+                console.log(new Date() - new Date(data.waterStart))
+                let offset = new Date(data.waterNext) - new Date(data.waterStart)
+                let current = new Date(data.waterStart)
+                while(current.getTime() < Date.now()){
+                    console.log("here")
+                    current = new Date(current.getTime() + offset);
+                    console.log("IN " + current)
+                }
+                console.log("NEW1 " + current)
+                let next = new Date(current.getTime() + offset);
+                console.log("NEW2 " + next)
+                dateTime1.value = (new Date(current.getTime() - current.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+                dateTime2.value = (new Date(next.getTime() - next.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+
+            } else {
+                console.log('vsecko v poradku');
+                dateTime1.value = data.waterStart.replace(/\s/g, "T");
+                if (data.waterNext != null) {
+                    dateTime2.value = data.waterNext.replace(/\s/g, "T");
+                }
+            }
+
+
         }
         // pickedTimestamp = data.waterStart
         // nextPickedTimestamp = data.waterNext
@@ -103,33 +89,16 @@ function openSettings() {
                 autoRadio.checked = true;
                 humiditySection.classList.remove('hidden')
                 timeSection.classList.add('hidden')
-                // humiditySlider.classList.remove('hidden')
-                // const rangeBar = document.getElementById('range-bar')
-                // const leftThumb = document.getElementById('thumb-left')
-                // const rightThumb = document.getElementById('thumb-right')
-                // const leftSign = document.getElementById('sign-left')
-                // const rightSign = document.getElementById('sign-right')
-                // const leftSignValue = document.getElementById('sign-left-value')
-                // const rightSignValue = document.getElementById('sign-right-value')
-                // const minHumidityInput = document.getElementById('min-humidity-input')
-                // const maxHumidityInput = document.getElementById('max-humidity-input')
-                // rangeBar.style.left = data.minHumidity+"%"
-                // leftThumb.style.left = data.minHumidity+"%"
-                // leftSign.style.left = data.minHumidity+"%"
-                // leftSignValue.innerHTML = data.minHumidity
-                // minHumidityInput.value = data.minHumidity
                 break
             case 'timed':
                 timedRadio.checked = true;
                 timeSection.classList.remove('hidden')
                 humiditySection.classList.add('hidden')
-                // humiditySlider.classList.add('hidden')
                 break
             case 'manual':
                 manualRadio.checked = true;
                 humiditySection.classList.add('hidden')
                 timeSection.classList.add('hidden')
-                // humiditySlider.classList.add('hidden')
                 break
         }
     }).catch(function(e) {
