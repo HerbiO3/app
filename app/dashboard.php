@@ -81,6 +81,78 @@
 
 </div>
 
+<!-- ADD UNIT MODAL-->
+<div id="create-unit" class="flex hidden">
+    <button id="create-unit-button" data-modal-target="create-unit-modal" data-modal-toggle="create-unit-modal" class="block mx-auto my-4 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        Vytvoriť jednotku
+    </button>
+</div>
+
+<div id="create-unit-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full md:h-full">
+    <div class="relative w-full h-full max-w-2xl md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Pridať jednotku</h3>
+                <button type="button" id="setting-modal-close" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="create-unit-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="px-8 pt-8 pb-4 lg:px-24">
+                <form class="space-y-6" id="settings-form" action="../api/units/create.php" method="post">
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="items-center p-x space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <div id="err-msg-div" class="hidden pt-2.5">
+                    <span id="err-msg" class="text-red-600 font-bold"></span>
+                </div>
+                <button type="button" id="validate-form-unit-button" class="w-3/5 my-4 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pridať</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ADD SECTION MODAL -->
+<div id="create-section" class="flex hidden">
+    <button id="create-section-button" data-modal-target="create-section-modal" data-modal-toggle="create-section-modal" class="block mx-auto my-4 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+        Vytvoriť sekciu
+    </button>
+</div>
+
+<div id="create-section-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full md:h-full">
+    <div class="relative w-full h-full max-w-2xl md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Pridať sekciu</h3>
+                <button type="button" id="setting-modal-close" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="create-section-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="px-8 pt-8 pb-4 lg:px-24">
+                <form class="space-y-6" id="settings-form" action="../api/sections/create.php" method="post">
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="items-center p-x space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <div id="err-msg-div" class="hidden pt-2.5">
+                    <span id="err-msg" class="text-red-600 font-bold"></span>
+                </div>
+                <button type="button" id="validate-form-section-button" class="w-3/5 my-4 mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pridať</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION SETTINGS MODAL -->
 <div id="section-settings" class="flex hidden">
     <button id="settings-button" data-modal-target="settings-modal" data-modal-toggle="settings-modal" class="block mx-auto my-4 text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
         Nastav sekciu
@@ -138,48 +210,6 @@
                             <input type="number" id="log-interval" name="log-interval-minutes" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="0">
                         </div>
                     </div>
-<!--       ******************** DOUBLE SLIDER (INTERVAL) ***************************************************************************-->
-<!--                    <div id="slider-humidity" class="hidden">-->
-<!--                    https://codepen.io/glitchworker/pen/XVdKqj-->
-<!--                        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Interval vlhkosti &lt;min-max&gt; (%)</h3>-->
-<!--                        <div slider>-->
-<!--                            <div>-->
-<!--                                <div inverse-left style="width:70%;"></div>-->
-<!--                                <div inverse-right style="width:70%;"></div>-->
-<!--                                <div range id="range-bar" style="left:40%;right:30%;"></div>-->
-<!--                                <span thumb id="thumb-left" style="left:40%;"></span>-->
-<!--                                <span thumb id="thumb-right" style="left:70%;"></span>-->
-<!--                                <div sign id="sign-left" style="left:40%;">-->
-<!--                                    <span id="sign-left-value">40</span>-->
-<!--                                </div>-->
-<!--                                <div sign id="sign-right" style="left:70%;">-->
-<!--                                    <span id="sign-right-value">70</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <input type="range" tabindex="0" name="minHumidity" id="min-humidity-input" value="40" max="100" min="0" step="1" oninput=-->
-<!--                                "-->
-<!--                                    this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);-->
-<!--                                    var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);-->
-<!--                                    var children = this.parentNode.childNodes[1].childNodes;-->
-<!--                                    children[1].style.width=value+'%';-->
-<!--                                    children[5].style.left=value+'%';-->
-<!--                                    children[7].style.left=value+'%';children[11].style.left=value+'%';-->
-<!--                                    children[11].childNodes[1].innerHTML=this.value;-->
-<!--                                "-->
-<!--                            />-->
-<!--                            <input type="range" tabindex="0" name="maxHumidity" id="max-humidity-input" value="70" max="100" min="0" step="1" oninput=-->
-<!--                                "-->
-<!--                                    this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));-->
-<!--                                    var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);-->
-<!--                                    var children = this.parentNode.childNodes[1].childNodes;-->
-<!--                                    children[3].style.width=(100-value)+'%';-->
-<!--                                    children[5].style.right=(100-value)+'%';-->
-<!--                                    children[9].style.left=value+'%';children[13].style.left=value+'%';-->
-<!--                                    children[13].childNodes[1].innerHTML=this.value;-->
-<!--                                "-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div id="humidity-section">
                         <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Minimálna hranica vlhkosti</h3>
                         <div class='range'>
@@ -300,8 +330,14 @@
     const loadHistory = document.getElementById("show-history")
     const title = document.getElementById("title")
     const timestamp = document.getElementById("lastUpdate")
+    // modals
     const sectionSettings = document.getElementById("section-settings")
     const settingsButton = document.getElementById("settings-button")
+    const createUnit= document.getElementById("create-unit")
+    const createUnitButton = document.getElementById("create-unit-button")
+    const createSection = document.getElementById("create-section")
+    const createSectionButton = document.getElementById("create-unit-button")
+
     let lastUnitId;
     let openedSectionId;
     openUnits();

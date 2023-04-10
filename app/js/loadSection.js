@@ -18,6 +18,9 @@ function openSection(name, id){
 
                     history.style.display="flex";
                     sectionSettings.style.display="flex";
+                    createSection.style.display="none";
+                    createUnit.style.display="none";
+
                     settingsButton.addEventListener("click", openSettings)
                     //loadHistory.replaceWith(loadHistory.cloneNode(true));
                     //loadHistory.removeEventListener("click", openGraphs);
@@ -48,12 +51,6 @@ function openSection(name, id){
                 createItem(sensor.name,sensor.type,sensor.value,section)
             })
 
-            // createItem("Hladina v nádrži","level",data.waterLevel*100 + "%",section)
-            // createItem("UV index","uv",data.uvIndex,section)
-            // createItem("Teplota vzduchu","temp",data.airTemperature + "°",section)
-            // data.humidity.forEach((sensor)=>{
-            //     createItem("Vlhkosť v kvetináči ("+sensor.sensorId+")","hum",sensor.value*100 + "%",section)
-            // })
             setTime(data.time);
 
         }).catch(function(e) {

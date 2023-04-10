@@ -13,7 +13,10 @@ function openUnits() {
                     unit.style.display="none";
                     section.style.display="none";
                     history.style.display="none";
+
                     sectionSettings.style.display="none";
+                    createSection.style.display="none";
+                    createUnit.style.display="flex";
 
                     title.innerText="VÝBER JEDNOTKY"
                     break;

@@ -17,6 +17,10 @@ function openUnit(id){
                     sectionSettings.style.display="none";
                     document.getElementById("graphs").style.display="none";
                     unit.style.display="block";
+
+                    createSection.style.display="flex";
+                    createUnit.style.display="none";
+
                     title.innerText="VÝBER SEKCIE"
                     break;
                 case 401:
