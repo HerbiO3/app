@@ -247,8 +247,6 @@ header{
 
 .ms::after {
     content: 'sekúnd';
-    /*font-weight: 200;*/
-    color: white;
 }
 
 @supports (-moz-appearance:none) {
@@ -276,8 +274,6 @@ header{
 
 .min::after {
     content: 'minút';
-    /*font-weight: 200;*/
-    color: white;
 }
 
 @supports (-moz-appearance:none) {

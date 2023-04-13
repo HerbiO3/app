@@ -196,14 +196,14 @@
                         </li>
                     </ul>
 
-                    <div id="water-amount" class="ms">
+                    <div id="water-amount" class="ms dark:text-white text-black">
                         <div id="ms-div">
                             <label for="watering-time" class="mb-4 font-semibold text-gray-900 dark:text-white">Doba zavlažovania</label>
                             <input type="number" id="watering-time" name="water-time-seconds" class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="0">
                         </div>
                     </div>
 
-                    <div id="log-section" class="min">
+                    <div id="log-section" class="min dark:text-white text-black4">
                         <div id="min-div">
                             <label for="log-interval" class="mb-4 font-semibold text-gray-900 dark:text-white">Interval logovania</label>
                             <span class="text-gray-900 dark:text-white text-xs">(pre celú jednotku)</span>
