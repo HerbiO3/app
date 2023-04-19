@@ -3,15 +3,14 @@
 <head>
     <title>HerbiO3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--    <link type="text/css" rel="stylesheet" href="css/style.css">-->
     <link href="/app/css/global.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./img/herbio3.svg">
-    <script src="/js/script.js"></script>
     <link rel="manifest" href='./manifest.json'>
     <meta name="theme-color" content="#0076BE" />
     <script src="js/nav/storeColorMode.js"></script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-800" style="overscroll-behavior-y: contain;">
+
 <?php include "html/nav.html" ?>
 
 <div id="units">
@@ -41,7 +40,6 @@
 <?php include "html/sectionHistory.html" ?>
 
 </body>
-<script src="js/simplepicker.js"></script>
 <script src="js/nav/messages.js"></script>
 <script src="js/unit/loadUnit.js"></script>
 <script src="js/unit/loadUnits.js"></script>
@@ -50,16 +48,12 @@
 <script src="js/settings/loadSettings.js"></script>
 <script src="js/section/handleSectionSettings.js"></script>
 <script src="js/graphs/dates.js"></script>
-<script src="js/inputRange.js"></script>
 
 <!-- ... -->
 <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
 
 <!-- DevExtreme theme -->
 <link rel="stylesheet" href="graphs/Lib/css/dx.light.css">
-
-<!--Date Time picker style-->
-<link rel="stylesheet" href="css/simplepicker.css">
 
 <!-- DevExtreme library -->
 <script type="text/javascript" src="graphs/Lib/js/dx.all.js"></script>
