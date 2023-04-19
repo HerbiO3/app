@@ -49,7 +49,7 @@
         </div>
     </div>
 </section>
-<script src="js/messages.js"></script>
+<script src="js/nav/messages.js"></script>
 <script>
     const messages = document.getElementById("notifications")
     var myHeaders = new Headers();

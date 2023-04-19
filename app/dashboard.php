@@ -9,7 +9,7 @@
     <script src="/js/script.js"></script>
     <link rel="manifest" href='./manifest.json'>
     <meta name="theme-color" content="#0076BE" />
-    <script src="js/storeColorMode.js"></script>
+    <script src="js/nav/storeColorMode.js"></script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-800" style="overscroll-behavior-y: contain;">
 <div class="shadow">
@@ -295,14 +295,14 @@
 
 </body>
 <script src="js/simplepicker.js"></script>
-<script src="js/messages.js"></script>
-<script src="js/loadUnit.js"></script>
-<script src="js/loadUnits.js"></script>
-<script src="js/loadSection.js"></script>
-<script src="js/navigateBack.js"></script>
-<script src="js/loadSettings.js"></script>
-<script src="js/handleSectionSettings.js"></script>
-<script src="js/dates.js"></script>
+<script src="js/nav/messages.js"></script>
+<script src="js/unit/loadUnit.js"></script>
+<script src="js/unit/loadUnits.js"></script>
+<script src="js/section/loadSection.js"></script>
+<script src="js/nav/navigateBack.js"></script>
+<script src="js/settings/loadSettings.js"></script>
+<script src="js/section/handleSectionSettings.js"></script>
+<script src="js/graphs/dates.js"></script>
 <script src="js/inputRange.js"></script>
 
 <!-- ... -->
@@ -317,7 +317,7 @@
 <!-- DevExtreme library -->
 <script type="text/javascript" src="graphs/Lib/js/dx.all.js"></script>
 
-<script src="js/loadGraphs.js"></script>
+<script src="js/graphs/loadGraphs.js"></script>
 <script>
     const messages = document.getElementById("notifications")
     if(window.navigator.onLine === false){
@@ -342,7 +342,7 @@
     let openedSectionId;
     openUnits();
 </script>
-<script src="js/flowbite.min.js"></script>
-<script src="js/datepicker.min.js"></script>
-<script src="js/changeColorMode.js"></script>
+<script src="js/libs/flowbite.min.js"></script>
+<script src="js/libs/datepicker.min.js"></script>
+<script src="js/nav/changeColorMode.js"></script>
 </html>

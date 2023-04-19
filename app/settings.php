@@ -9,7 +9,7 @@
     <script src="/js/script.js"></script>
     <link rel="manifest" href='./manifest.json'>
     <meta name="theme-color" content="#0076BE" />
-     <script src="js/storeColorMode.js"></script>
+     <script src="js/nav/storeColorMode.js"></script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-800" style="overscroll-behavior-y: contain;">
 <div class="shadow">
@@ -271,10 +271,10 @@
 </div>
 
 </body>
-<script src="js/messages.js"></script>
-<script src="js/auditLogs.js"></script>
-<script src="js/userManager.js"></script>
-<script src="js/changeColorMode.js"></script>
-<script src="js/flowbite.min.js"></script>
-<script src="js/datepicker.min.js"></script>
+<script src="js/nav/messages.js"></script>
+<script src="js/settings/auditLogs.js"></script>
+<script src="js/settings/userManager.js"></script>
+<script src="js/nav/changeColorMode.js"></script>
+<script src="js/libs/flowbite.min.js"></script>
+<script src="js/libs/datepicker.min.js"></script>
 </html>

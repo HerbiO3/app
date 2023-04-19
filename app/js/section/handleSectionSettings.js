@@ -1,3 +1,13 @@
+const errorSpan = document.getElementById('err-msg')
+const errorSpanDiv = document.getElementById('err-msg-div')
+const input_range = document.getElementById('input-range')
+
+input_range.addEventListener('input', () => {
+    var getValRange = input_range.value
+    document.getElementById('span-range').innerText = getValRange + '%'
+})
+
+
 if (document.querySelector('input[name="mode"]')) {
     document.querySelectorAll('input[name="mode"]').forEach((elem) => {
         elem.addEventListener("change", function(event) {
@@ -21,9 +31,6 @@ if (document.querySelector('input[name="mode"]')) {
         });
     });
 }
-
-const errorSpan = document.getElementById('err-msg')
-const errorSpanDiv = document.getElementById('err-msg-div')
 
 function displayErrorMessage(msg) {
     errorSpanDiv.classList.remove('hidden')
