@@ -38,6 +38,13 @@ function displayErrorMessage(msg) {
     document.getElementById("validate-form-button").disabled = false;
 }
 
+function displaySuccessMessage(msg) {
+    errorSpanDiv.classList.remove('hidden')
+    errorSpan.innerHTML = msg
+    document.getElementById("validate-form-button").disabled = false;
+}
+
+
 document.getElementById("validate-form-button").addEventListener('click', settingsValidator)
 
 function settingsValidator () {

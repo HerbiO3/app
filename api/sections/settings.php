@@ -1,9 +1,9 @@
 <?php
-//GET - get section data to prefill form
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
+require "../logs/create_log.php";
 
 header('Content-Type: application/json; charset=utf-8');
 session_start();
@@ -46,6 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 //POST - update settings in section
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // audit log - init
+    $logInfo = 'Executing section ' . '(id ' . $_POST["section-id"] . ')' . ' setting change';
+    audit_log($conn, $_SESSION['user'], 'init', $logInfo);
+
     if (!isset($_SESSION["user"]) || !$_SESSION["super"]) {
         header("HTTP/1.1 401 Unauthorized");
         die("unauthorized");
@@ -56,12 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return;
     }
 
-    $query = "INSERT into audit_log (user, type, info) VALUES  (?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    $logType = 'init';
-    $logInfo = 'Executing section ' . '(id ' . $_POST["section-id"] . ')' . ' setting change';
-    $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-    $stmt->execute();
 
     $query = "SELECT unit.id FROM section join unit on section.unit = unit.id WHERE section.id=?";
     $stmt = $conn->prepare($query);
@@ -102,38 +100,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $stmt->execute();
 
-        $query = "INSERT into audit_log (user, type, info) VALUES  (?, ?, ?)";
-        $stmt = $conn->prepare($query);
-        $logType = 'update';
+        // audit logs - update
         $logInfo = 'Change unit ' . '(id ' . $unit->id . ')' . ' log_interval to ' . $logTimeMs;
-        $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-        $stmt->execute();
-
-        $stmt = $conn->prepare($query);
+        audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         $logInfo = 'Change section ' . '(id ' . $_POST["section-id"] . ')' . ' mode to ' . $_POST["mode"];
-        $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-        $stmt->execute();
-
-        $stmt = $conn->prepare($query);
+        audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         $logInfo = 'Change section ' . '(id ' . $_POST["section-id"] . ')' . ' water_time to ' . $waterTimeMs;
-        $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-        $stmt->execute();
+        audit_log($conn, $_SESSION['user'], 'update', $logInfo);
 
         if ($_POST["mode"] == 'auto') {
-            $stmt = $conn->prepare($query);
             $logInfo = 'Change section ' . '(id ' . $_POST["section-id"] . ')' . ' min_humidity to ' . $_POST["min-humidity-percent"];
-            $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-            $stmt->execute();
+            audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         } elseif ($_POST["mode"] == 'timed') {
-            $stmt = $conn->prepare($query);
             $logInfo = 'Change section ' . '(id ' . $_POST["section-id"] . ')' . ' water_start to ' . $timeStart;
-            $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-            $stmt->execute();
-            $stmt = $conn->prepare($query);
+            audit_log($conn, $_SESSION['user'], 'update', $logInfo);
             $logInfo = 'Change section ' . '(id ' . $_POST["section-id"] . ')' . ' water_next to ' . $timeNext;
-            $stmt->bind_param('iss', $_SESSION['user'], $logType, $logInfo);
-            $stmt->execute();
+            audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         }
+
+        echo $_POST["section-id"]  >  "/home/herbio/pythons/update_pipe";
 
         $conn->commit();
     } catch (\Throwable $e) {
