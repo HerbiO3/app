@@ -18,14 +18,14 @@ if (!$conn) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if all parameters are set
-    if (isset($_POST['name']) && isset($_POST['log_interval']) && isset($_POST['min_level']) && isset($_POST['max_level']) && isset($_POST['current_level'])) {
+    if (isset($_POST['name']) && isset($_POST['log_interval']) && isset($_POST['min_level']) && isset($_POST['max_level'])) {
 
         // Retrieve the POST data
         $name = $_POST['name'];
         $logInterval = $_POST['log_interval'];
         $minLevel = $_POST['min_level'];
         $maxLevel = $_POST['max_level'];
-        $currentLevel = $_POST['current_level'];
+        $currentLevel = $_POST['min_level'];
 
         // Prepare the SQL query
         $query = "INSERT INTO `unit` (`name`, `log_interval`, `min_level`, `max_level`, `current_level`) 
