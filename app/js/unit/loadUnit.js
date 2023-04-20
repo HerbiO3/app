@@ -41,10 +41,15 @@ function openUnit(id){
             backOnline()
             unit.innerHTML='';
             const h2 = document.createElement("h2")
+            h2.classList.add('text-gray-900', 'dark:text-white', 'font-semibold')
             h2.innerText = data.name
             unit.append(h2)
-            data.sections.forEach(section=>{appendSection(section)})
             setTime(data.time);
+            if(!data.sections) {
+                appendMessage("info", "Pre túto jednotku neexistujú žiadne sekcie")
+                return
+            }
+            data.sections.forEach(section=>{appendSection(section)})
             localStorage.setItem("unit-"+id,JSON.stringify(data));
         }).catch(function(e) {
             console.log(e)

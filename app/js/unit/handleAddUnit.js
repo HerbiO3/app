@@ -3,7 +3,7 @@ const unitErrorSpanDiv = document.getElementById('create-unit-err-msg-div')
 
 function displayErrorMessage(msg) {
     unitErrorSpanDiv.classList.remove('hidden')
-    unitErrorSpan.innerHTML = msg
+    unitErrorSpan.innerText = msg
     document.getElementById("validate-form-unit-button").disabled = false;
 }
 
@@ -26,8 +26,8 @@ function addUnitFormSubmit() {
             document.getElementById("create-unit-modal-close").click();
             document.getElementById("validate-form-unit-button").disabled = false;
             console.log(request.responseText)
-            appendMessage("success", "Jednotka úspešne vytvorená")
             openUnits()
+            appendMessage("success", "Jednotka úspešne vytvorená")
         }
     }
     request.open('POST', "/api/units/create.php", true);
