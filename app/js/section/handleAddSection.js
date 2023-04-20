@@ -10,11 +10,19 @@ function displayErrorMessage(msg) {
 document.getElementById("validate-form-section-button").addEventListener('click', addSectionFormSubmit)
 
 function addSectionFormSubmit() {
+    const sectionForm = document.getElementById('create-section-form')
+    if (document.getElementById('section-name').value === '') {
+        displayErrorMessage("Neplatné meno sekcie")
+        return
+    } else if (document.getElementById('section-valve').value === '') {
+        displayErrorMessage("Neplatné ID ventilu")
+        return
+    }
     let unitIdField = document.createElement("input");
     unitIdField.setAttribute("type", "hidden");
     unitIdField.setAttribute("name", "unit");
     unitIdField.value = lastUnitId
-    document.getElementById('create-section-form').appendChild(unitIdField);
+    sectionForm.appendChild(unitIdField);
     let request = new XMLHttpRequest()
     request.onreadystatechange=function() {
         if (request.readyState === 4 && request.status !== 201) {

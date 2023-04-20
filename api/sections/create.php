@@ -34,6 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //        $waterStart = null;
 //        $waterNext = null;
 
+        if ($name == '' || $valveId = '') {
+            header("HTTP/1.1 400 Bad Request");
+            echo "Empty parameters.";
+            return;
+        }
 
         // Check if unit with the provided ID exists
         $checkQuery = "SELECT `id` FROM `unit` WHERE `id` = ?";
