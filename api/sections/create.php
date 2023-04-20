@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 if(!isset($_SESSION["user"])){
     header("HTTP/1.1 401 Unauthorized");
@@ -23,12 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Retrieve the POST data
         $unitId = $_POST['unit'];
         $name = $_POST['name'];
-        $mode = $_POST['mode'];
-        $minHumidity = $_POST['min_humidity'];
-        $waterTime = $_POST['water_time'];
+        $mode = 'manual';
+        $minHumidity = 50;
+        $waterTime = 10;
         $valveId = $_POST['valve_id'];
-        $waterStart = $_POST['water_start'];
-        $waterNext = $_POST['water_next'];
+//        $waterStart = null;
+//        $waterNext = null;
 
 
         // Check if unit with the provided ID exists
@@ -41,14 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mysqli_stmt_num_rows($checkStmt) > 0) {
             // Unit with the provided ID exists, proceed with insertion
             // Prepare the SQL query
-            $query = "INSERT INTO `unit` (`id`, `name`, `mode`, `min_humidity`, `water_time`, `valve_id`, `water_start`, `water_next`) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO `section` (`unit`, `name`, `mode`, `min_humidity`, `water_time`, `valve_id`) 
+                      VALUES (?, ?, ?, ?, ?, ?)";
 
             // Prepare the statement
             $stmt = mysqli_prepare($conn, $query);
 
             // Bind the parameters to the statement
-            mysqli_stmt_bind_param($stmt, "issiiiss", $unitId, $name, $mode, $minHumidity, $waterTime, $valveId, $waterStart, $waterNext);
+            mysqli_stmt_bind_param($stmt, "issiii", $unitId, $name, $mode, $minHumidity, $waterTime, $valveId);
 
             // Execute the statement
             mysqli_stmt_execute($stmt);

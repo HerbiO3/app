@@ -10,6 +10,11 @@ function displayErrorMessage(msg) {
 document.getElementById("validate-form-section-button").addEventListener('click', addSectionFormSubmit)
 
 function addSectionFormSubmit() {
+    let unitIdField = document.createElement("input");
+    unitIdField.setAttribute("type", "hidden");
+    unitIdField.setAttribute("name", "unit");
+    unitIdField.value = lastUnitId
+    document.getElementById('create-section-form').appendChild(unitIdField);
     let request = new XMLHttpRequest()
     request.onreadystatechange=function() {
         if (request.readyState === 4 && request.status !== 201) {
@@ -19,6 +24,7 @@ function addSectionFormSubmit() {
             document.getElementById("create-section-modal-close").click();
             document.getElementById("validate-form-section-button").disabled = false;
             console.log(request.responseText)
+            openUnit(lastUnitId)
             appendMessage("success", "Sekcia úspešne vytvorená")
         }
     }
