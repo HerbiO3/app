@@ -23,6 +23,8 @@
 
 <?php include "html/createUnit.html" ?>
 
+<?php include "html/createSensor.html" ?>
+
 <?php include "html/sectionSettings.html" ?>
 
 
@@ -43,6 +45,7 @@
 <script src="js/section/handleSectionSettings.js"></script>
 <script src="js/unit/handleAddUnit.js"></script>
 <script src="js/section/handleAddSection.js"></script>
+<script src="js/sensor/handleAddSensor.js"></script>
 <script src="js/graphs/dates.js"></script>
 
 <!-- ... -->
@@ -74,6 +77,8 @@
     const createUnitButton = document.getElementById("create-unit-button")
     const createSection = document.getElementById("create-section")
     const createSectionButton = document.getElementById("create-unit-button")
+    const createSensor = document.getElementById("create-sensor")
+    const createSensorButton = document.getElementById("create-sensor-button")
 
     let lastUnitId;
     let openedSectionId;

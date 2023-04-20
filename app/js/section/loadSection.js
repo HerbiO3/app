@@ -20,6 +20,7 @@ function openSection(name, id){
                     sectionSettings.style.display="flex";
                     createSection.style.display="none";
                     createUnit.style.display="none";
+                    createSensor.style.display="none";
 
                     settingsButton.addEventListener("click", openSettings)
                     //loadHistory.replaceWith(loadHistory.cloneNode(true));
@@ -111,7 +112,7 @@ function offlineSection(id) {
         section.style.display="inline-flex";
         history.style.display="flex";
         sectionSettings.style.display="flex";
-        settingsButton.addEventListener("click", openSettings)
+        // settingsButton.addEventListener("click", openSettings)
         title.innerText="SEKCIA " + name;
         openedSectionId = id;
 

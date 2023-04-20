@@ -18,6 +18,7 @@ function openUnit(id){
                     document.getElementById("graphs").style.display="none";
                     unit.style.display="block";
 
+                    createSensor.style.display="flex";
                     createSection.style.display="flex";
                     createUnit.style.display="none";
 
