@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="sk">
-<head>
-    <title>HerbiO3</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--    <link type="text/css" rel="stylesheet" href="css/style.css">-->
-    <link href="/app/css/output.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="./img/herbio3.svg">
-    <script src="/js/script.js"></script>
-    <link rel="manifest" href='./manifest.json'>
-    <meta name="theme-color" content="#0076BE" />
-</head>
+
+<?php include "html/head.html" ?>
+
 <body class="bg-gray-50 dark:bg-gray-900">
 
 <div id="notifications" style="display: none">
