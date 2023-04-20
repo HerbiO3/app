@@ -118,7 +118,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         }
 
-        echo $_POST["section-id"]  >  "/home/herbio/pythons/update_pipe";
+////        echo $_POST["section-id"]  >  "/home/herbio/pythons/update_pipe";
+//        $pipe_path = "/home/herbio/pythons/update_pipe";
+//        $msg = $_POST["section-id"];
+////        exec("echo '$msg' > $pipe_path");
+//        $handle = fopen($pipe_path, "w");
+//        if ($handle) {
+//            stream_set_blocking($handle, false); // Set non-blocking mode
+//            fwrite($handle, $msg);
+//            fclose($handle);
+//            echo "Data written to pipe: $msg";
+//        } else {
+//            echo "Failed to open pipe";
+//        }
+//
 
         $conn->commit();
     } catch (\Throwable $e) {

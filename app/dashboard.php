@@ -42,6 +42,7 @@
 <script src="js/settings/loadSettings.js"></script>
 <script src="js/section/handleSectionSettings.js"></script>
 <script src="js/unit/handleAddUnit.js"></script>
+<script src="js/section/handleAddSection.js"></script>
 <script src="js/graphs/dates.js"></script>
 
 <!-- ... -->

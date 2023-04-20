@@ -18,7 +18,7 @@ if (!$conn) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if all required parameters are set
-    if (isset($_POST['unit']) && isset($_POST['name']) && isset($_POST['mode']) && isset($_POST['min_humidity']) && isset($_POST['water_time']) && isset($_POST['valve_id']) && isset($_POST['water_start']) && isset($_POST['water_next'])) {
+    if (isset($_POST['unit']) && isset($_POST['name']) && isset($_POST['valve_id'])) {
 
         // Retrieve the POST data
         $unitId = $_POST['unit'];

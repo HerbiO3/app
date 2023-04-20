@@ -101,7 +101,7 @@ function formSubmit() {
             document.getElementById("setting-modal-close").click();
             document.getElementById("validate-form-button").disabled = false;
             console.log(request.responseText)
-
+            appendMessage("success", "Zmena nastavení bola úspešná")
         }
     }
     request.open('POST', "../../api/sections/settings.php", true);
