@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 require "../logs/create_log.php";
 
@@ -118,23 +115,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         }
 
-////        echo $_POST["section-id"]  >  "/home/herbio/pythons/update_pipe";
-//        $pipe_path = "/home/herbio/pythons/update_pipe";
-//        $msg = $_POST["section-id"];
-////        exec("echo '$msg' > $pipe_path");
-//        $handle = fopen($pipe_path, "w");
-//        if ($handle) {
-//            stream_set_blocking($handle, false); // Set non-blocking mode
-//            fwrite($handle, $msg);
-//            fclose($handle);
-//            echo "Data written to pipe: $msg";
-//        } else {
-//            echo "Failed to open pipe";
-//        }
-//
+        $pipe_path = "/home/herbio/pythons/update_pipe";
+        $pipe = fopen($pipe_path, 'w');
+        if ($pipe) {
+            $msg = $_POST["section-id"];
+            fwrite($pipe, $msg);
+            fclose($pipe);
+        }
 
         $conn->commit();
-    } catch (\Throwable $e) {
+    } catch (Throwable $e) {
         $conn->rollback();
         header("HTTP/1.1 400 Bad Request");
         echo $e->getMessage();
