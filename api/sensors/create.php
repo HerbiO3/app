@@ -18,10 +18,8 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // Check if all required parameters are set
     if (isset($_POST['unit']) && isset($_POST['name']) && isset($_POST['sensor_id']) && isset($_POST['sensor_type'])) {
 
         // Retrieve the POST data
@@ -32,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($type == "humidity" && !isset($_POST['section_id'])) {
             header("HTTP/1.1 400 Bad Request");
-            echo "Missing section ID parameter.";
+            echo "Missing section parameter.";
             return;
         }
 
@@ -57,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Check if unit with the provided ID exists
         $checkUnitQuery = "SELECT `id` FROM `unit` WHERE `id` = ?";
         $checkUnitStmt = mysqli_prepare($conn, $checkUnitQuery);
         mysqli_stmt_bind_param($checkUnitStmt, "i", $unitId);
@@ -65,8 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_store_result($checkUnitStmt);
 
         if (mysqli_stmt_num_rows($checkUnitStmt) > 0) {
-            // Unit with the provided ID exists, proceed with insertion
-            // Prepare the SQL query
             if ($type == 'humidity') {
                 $query = "INSERT INTO `sensor` (`unit`, `name`, `type`, `section`, `sensor_id`) 
                       VALUES (?, ?, ?, ?, ?)";
@@ -75,26 +70,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       VALUES (?, ?, ?, ?)";
             }
 
-            // Prepare the statement
             $stmt = mysqli_prepare($conn, $query);
 
-            // Bind the parameters to the statement
             if ($type == 'humidity') {
                 mysqli_stmt_bind_param($stmt, "issii", $unitId, $name, $type, $sectionId, $sensorId);
             } else {
                 mysqli_stmt_bind_param($stmt, "issi", $unitId, $name, $type, $sensorId);
             }
 
-            // Execute the statement
             mysqli_stmt_execute($stmt);
 
-            // Check if the insertion was successful
             if (mysqli_stmt_affected_rows($stmt) > 0) {
-                // Set HTTP status to 201 (Created)
                 header('HTTP/1.1 201 Created');
                 echo "Data inserted successfully!";
             } else {
-                // Set HTTP status to 500 (Internal Server Error)
                 header('HTTP/1.1 500 Internal Server Error');
                 echo "Failed to insert data.";
             }

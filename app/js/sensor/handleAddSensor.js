@@ -2,6 +2,7 @@ const sensorErrorSpan = document.getElementById('create-sensor-err-msg')
 const sensorErrorSpanDiv = document.getElementById('create-sensor-err-msg-div')
 
 function displayErrorMessage(msg) {
+    sensorErrorSpanDiv.classList.add('hidden')
     sensorErrorSpanDiv.classList.remove('hidden')
     sensorErrorSpan.innerText = msg
     document.getElementById("validate-form-sensor-button").disabled = false;
@@ -9,17 +10,30 @@ function displayErrorMessage(msg) {
 
 document.getElementById("validate-form-sensor-button").addEventListener('click', addSensorFormSubmit)
 
+document.getElementById("sensor-type").addEventListener('change', sensorTypeChecker)
+
+function sensorTypeChecker() {
+    const sensorTypeSelect = document.getElementById("sensor-type")
+    const sectionSelector = document.getElementById("section-for-sensor")
+    let selectedOption = sensorTypeSelect.options[sensorTypeSelect.selectedIndex].value
+    if (selectedOption === "humidity") {
+        sectionSelector.classList.remove('hidden')
+    } else {
+        sectionSelector.classList.add('hidden')
+    }
+}
+
 function addSensorFormSubmit() {
     const sensorForm = document.getElementById('create-sensor-form')
     if (document.getElementById('sensor-name').value === '') {
         displayErrorMessage("Neplatné meno senzoru")
         return
     } else if (document.getElementById('sensor-id').value === '') {
-        displayErrorMessage("Neplatné ID senzoru (hw)")
+        displayErrorMessage("Neplatné ID senzoru (HW)")
         return
     } else if (document.getElementById('sensor-type').options[document.getElementById('sensor-type').selectedIndex].value
         === 'humidity' && document.getElementById('sensor-section-id').value === '') {
-        displayErrorMessage("Neplatné ID sekcie pre senzor")
+        displayErrorMessage("Neplatná sekcia pre senzor vlhkosti")
         return
     }
     let unitIdField = document.createElement("input");
@@ -37,7 +51,7 @@ function addSensorFormSubmit() {
             document.getElementById("validate-form-sensor-button").disabled = false;
             console.log(request.responseText)
             // openUnit(lastUnitId)
-            appendMessage("success", "Senzor úspešne vytvorená")
+            appendMessage("success", "Senzor úspešne vytvorený")
         }
     }
     request.open('POST', "/api/sensors/create.php", true);

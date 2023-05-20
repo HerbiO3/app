@@ -51,6 +51,7 @@ function openUnit(id){
                 return
             }
             data.sections.forEach(section=>{appendSection(section)})
+            loadSectionSelection(data.sections)
             localStorage.setItem("unit-"+id,JSON.stringify(data));
         }).catch(function(e) {
             console.log(e)
@@ -72,8 +73,19 @@ function openUnit(id){
     }
 }
 
+function loadSectionSelection(sections) {
+    const sensorSectionSelect = document.getElementById('sensor-section-id')
+    sensorSectionSelect.innerHTML = "";
 
-function appendSection(section){
+    sections.forEach(function(section) {
+        let newSectionOption = document.createElement("option");
+        newSectionOption.value = section.id
+        newSectionOption.text = section.name
+        sensorSectionSelect.appendChild(newSectionOption);
+    });
+}
+
+function appendSection(section) {
     const secDiv = document.createElement("div")
     const h2 = document.createElement("h2")
     h2.innerText = section.name
