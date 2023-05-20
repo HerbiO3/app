@@ -1,19 +1,5 @@
 const wateringTime = document.getElementById('watering-time')
 
-let url = "/api/users/super_check.php?"
-const ms = Date.now();
-fetch(url+"&time="+ms, {cache: 'no-store'}).then(function(response) {
-    switch (response.status) {
-        case 202:
-            break;
-        case 206:
-            document.getElementById('settings-button').classList.add('hidden')
-            break;
-        default:
-            document.getElementById('settings-button').classList.add('hidden')
-    }
-})
-
 function openSettings() {
     const dateTime1 = document.getElementById('date-time-1');
     const dateTime2 = document.getElementById('date-time-2');

@@ -94,7 +94,12 @@ function settingsValidator () {
 function formSubmit() {
     let request = new XMLHttpRequest()
     request.onreadystatechange=function() {
-        if (request.readyState === 4 && request.status !== 200) {
+        if (request.readyState === 4 && request.status === 401) {
+            if (!errorSpanDiv.classList.contains('hidden')) errorSpanDiv.classList.add('hidden')
+            document.getElementById("setting-modal-close").click();
+            document.getElementById("validate-form-button").disabled = false;
+            appendMessage("danger", "Neoprávnená operácia")
+        } else if (request.readyState === 4 && request.status !== 200) {
             displayErrorMessage(request.responseText)
         } else if (request.readyState === 4) {
             if (!errorSpanDiv.classList.contains('hidden')) errorSpanDiv.classList.add('hidden')

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["user"])){
+if(!isset($_SESSION["user"]) || !$_SESSION["super"]){
     header("HTTP/1.1 401 Unauthorized");
     die("unauthorized");
 }
