@@ -18,11 +18,6 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $t=time();
-    $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
-    $perPage = isset($_GET["per_page"]) ? (int)$_GET["per_page"] : 10;
-    $offset = ($page - 1) * $perPage;
-
     $query = "SELECT unit.log_interval as logInterval, section.name, section.mode, section.min_humidity as minHumidity, section.water_time as waterTime, section.water_start as waterStart, section.water_next as waterNext FROM section join unit on section.unit = unit.id WHERE section.id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $_GET["id"]);
