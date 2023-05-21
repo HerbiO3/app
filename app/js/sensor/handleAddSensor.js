@@ -43,7 +43,12 @@ function addSensorFormSubmit() {
     sensorForm.appendChild(unitIdField);
     let request = new XMLHttpRequest()
     request.onreadystatechange=function() {
-        if (request.readyState === 4 && request.status !== 201) {
+        if (request.readyState === 4 && request.status === 401) {
+            if (!errorSpanDiv.classList.contains('hidden')) errorSpanDiv.classList.add('hidden')
+            document.getElementById("create-sensor-modal-close").click();
+            document.getElementById("validate-form-sensor-button").disabled = false;
+            appendMessage("danger", "Neoprávnená operácia")
+        } else if (request.readyState === 4 && request.status !== 201) {
             displayErrorMessage(request.responseText)
         } else if (request.readyState === 4) {
             if (!errorSpanDiv.classList.contains('hidden')) errorSpanDiv.classList.add('hidden')
