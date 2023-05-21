@@ -12,7 +12,6 @@
 </div>
 
 <?php include("html/settingsAuditLogs.html")?>
-<?php include("html/settingsAddUser.html")?>
 <?php include("html/settingsUserList.html")?>
 
 </body>
