@@ -72,9 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $logTimeMs = round($_POST["log-interval-minutes"] * 60000);
 
         if ($_POST["mode"] == 'manual') {
-            $query = "UPDATE section INNER JOIN unit on section.unit = unit.id SET unit.log_interval=?, section.mode=?, section.water_time=? WHERE section.id = ?";
+            $query = "UPDATE section INNER JOIN unit on section.unit = unit.id SET unit.log_interval=?, section.mode=?, section.water_time=?, section.water_now=? WHERE section.id = ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param('isii', $logTimeMs, $_POST["mode"], $waterTimeMs, $_POST["section-id"]);
+            $waterNow = 1;
+            $stmt->bind_param('isiii', $logTimeMs, $_POST["mode"], $waterTimeMs, $waterNow, $_POST["section-id"]);
         } elseif ($_POST["mode"] == 'auto') {
             $query = "UPDATE section INNER JOIN unit on section.unit = unit.id SET unit.log_interval=?, section.mode=?, section.water_time=?, section.min_humidity=? WHERE section.id = ?";
             $stmt = $conn->prepare($query);
@@ -110,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             audit_log($conn, $_SESSION['user'], 'update', $logInfo);
         }
 
-        $pipe_path = "/home/herbio/pythons/update_pipe";
+        $pipe_path = "/home/herbio/pythons/update_pipe2";
         $pipe = fopen($pipe_path, 'w');
         if ($pipe) {
             $msg = $_POST["section-id"];
