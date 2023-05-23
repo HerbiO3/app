@@ -30,17 +30,23 @@ function loadAndShow(){
         let humData = []
         let i=0;
         const humSeries = [];
-
+        console.log(data.sensors)
         data.sensors.forEach((sensor)=>{
             switch (sensor.type){
                 case "level":
-                    waterLevelData = sensor.data;
+                    if(waterLevelData.length === 0){
+                        waterLevelData = sensor.data;
+                    }
                     break;
                 case "uv":
-                    UVData = sensor.data;
+                    if(UVData.length === 0){
+                        UVData = sensor.data;
+                    }
                     break;
                 case "temp":
-                    tempData = sensor.data;
+                    if(tempData.length === 0){
+                        tempData = sensor.data;
+                    }
                     break;
                 case "humidity":
                     sensor.data.forEach(obj => {
@@ -82,7 +88,9 @@ function loadAndShow(){
             return result;
         }
 
-        console.log(mergedHumData)
+        //console.log(mergedHumData)
+        console.log("LEVEL")
+        console.log(waterLevelData)
         //LEVEL
         $(() => {
             function getText(item, text) {

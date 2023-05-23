@@ -49,7 +49,7 @@
 <script src="js/graphs/dates.js"></script>
 
 <!-- ... -->
-<script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="js/libs/jquery-3.5.1.min.js"></script>
 
 <!-- DevExtreme theme -->
 <link rel="stylesheet" href="graphs/Lib/css/dx.light.css">
